@@ -1,0 +1,35 @@
+{
+  "project": "market-microstructure-lab",
+  "seed": 1729,
+  "metrics": {
+    "symmetric_quotes": {
+      "terminal_equity": 14.27932194331811,
+      "terminal_cash": -1191.4782189574191,
+      "terminal_inventory": 12,
+      "terminal_mid": 100.47979507506145,
+      "fills": 290,
+      "fees": 0.2900000000000002,
+      "max_abs_inventory": 13,
+      "max_drawdown": 4.107814212307062
+    },
+    "inventory_skew": {
+      "terminal_equity": 13.22972829093095,
+      "terminal_cash": -187.72986185919194,
+      "terminal_inventory": 2,
+      "terminal_mid": 100.47979507506145,
+      "fills": 292,
+      "fees": 0.2920000000000002,
+      "max_abs_inventory": 5,
+      "max_drawdown": 0.578635338432278
+    }
+  },
+  "provenance": {
+    "data": "Synthetic Gaussian midprice moves and distance-dependent arrivals",
+    "numpy": "2.2.4"
+  },
+  "limitations": [
+    "Quote-arrival model, not a reconstructed exchange order book.",
+    "No queue position, adverse-selection model, market impact, or latency yet.",
+    "Terminal inventory is marked at mid without liquidation costs; simulated PnL is not evidence of tradability."
+  ]
+}
