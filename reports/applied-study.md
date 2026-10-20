@@ -95,6 +95,10 @@ Sixteen independent seeds compare policies with identical pre-generated price, o
 - Latency is measured in event batches, not network nanoseconds. Hidden liquidity, auctions, credit limits and exchange-specific order types are omitted.
 - Recorded replay uses seed 1729; summary uncertainty uses separate paired seeds 100–115. Mark-to-mid equity differs from final liquidated net.
 
+## Interpretation
+
+The inventory-skew policy reduces exposure but loses net outcome relative to symmetric quotes in these paired scenarios. This is a useful negative result: inventory control carries an opportunity cost, and stale quotes add a separate cost. The simulator does not establish which policy is best on real exchange data.
+
 ## Concepts to explain in an interview
 
 Explain the objective and units, where each baseline obtains its information, what was fixed before evaluation, how costs and uncertainty were measured, and one failure the model cannot capture. Reproduce the data before presenting a number; distinguish an implementation demonstration from a validated research conclusion.
