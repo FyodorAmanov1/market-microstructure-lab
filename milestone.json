@@ -1,0 +1,14 @@
+{
+  "task_id": "MM01",
+  "status": "completed",
+  "summary": "Implemented a separate integer-tick price-time FIFO limit order book with partial fills, crossing orders, resting-price execution, and exact zero-fee cash/inventory accounting. All 15 tests pass, including a 1,500-order independent matching oracle. Regenerated results include a six-order trace and 1,000 synthetic orders with zero checked invariant violations. Existing simulator interfaces and negative policy-equity comparison are preserved.",
+  "evidence_paths": [
+    "lab.py",
+    "tests/test_lab.py",
+    "tests/test_order_book.py",
+    "results/latest.json",
+    "reports/MM01.md",
+    "README.md",
+    "REFERENCES.md"
+  ]
+}
