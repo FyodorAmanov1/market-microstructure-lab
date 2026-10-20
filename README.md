@@ -51,6 +51,10 @@ CI reproduces every applied case with `python src/studio.py --check docs/study.j
 - Paired difference standard error: **41.9002 ticks**
 - Cash / inventory violations: **0 **
 
+## Interpretation
+
+The inventory-skew policy reduces exposure but loses net outcome relative to symmetric quotes in these paired scenarios. This is a useful negative result: inventory control carries an opportunity cost, and stale quotes add a separate cost. The simulator does not establish which policy is best on real exchange data.
+
 ## Design
 
 ```mermaid
