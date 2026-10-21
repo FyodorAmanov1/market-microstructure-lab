@@ -1,92 +1,89 @@
 # Market Replay Studio
 
-Queue dynamics, inventory control and adverse selection you can inspect.
+**An order-book experiment in how queue position, stale quotes and informed flow change a market maker's inventory and P&L.**
 
-**[Open the interactive research studio](https://fyodoramanov1.github.io/market-microstructure-lab/)** · [Measured study](docs/study.json) · [Technical case study](reports/applied-study.md) · [Source](src/studio.py)
+Market Replay Studio combines an event-driven exchange model with an interactive replay. Orders execute against the actual book, allowing fills, fees, inventory and final liquidation to be traced through the same sequence of events.
 
-Build an auditable event-driven exchange and execution research instrument; realistic accounting comes before attractive P&L.
+[Explore the replay](https://fyodoramanov1.github.io/market-microstructure-lab/) · [Read the study](reports/applied-study.md)
 
-## What you can do
+## Exchange mechanics
 
-- **Balanced flow:** Balanced flow: a price/time-priority book, cancellable orders, inventory-constrained quoting and stale quotes. Replay the managed policy, then compare net results across sixteen paired seeds.
-- **Directional market:** Directional market: a price/time-priority book, cancellable orders, inventory-constrained quoting and stale quotes. Replay the managed policy, then compare net results across sixteen paired seeds.
-- **Informed flow:** Informed flow: a price/time-priority book, cancellable orders, inventory-constrained quoting and stale quotes. Replay the managed policy, then compare net results across sixteen paired seeds.
+- Integer-tick prices and quantities, price–time priority and partial fills.
+- Maker-price execution and owner-checked order cancellation.
+- Separate cash and inventory accounts, with aggregate conservation checks after each event batch.
+- Background liquidity at five levels and finite-depth liquidation at the end of a run.
 
-The interface selects recorded experiments, toggles chart series and exports the comparison table. Each view includes the method, assumptions, provenance and its reproduce command. No API key is required. Market Replay additionally plays the actual book snapshots; the Evidence Observatory performs local retrieval and numeric-claim checks.
+The reference exchange implementation lives in [lab.py](lab.py); the applied replay and policy comparison live in [src/studio.py](src/studio.py).
 
-## Reproduce
+## Strategies and market conditions
 
-Python 3.12; CPU only. From this repository:
+Three quoting policies face the same pre-generated external flow within each paired seed:
 
-```powershell
+| Policy | Main decision |
+|---|---|
+| Symmetric | Quote around the reference price without inventory skew |
+| Inventory skew | Shift quotes according to current inventory |
+| Delayed refresh | Use inventory skew but refresh quotes only every fifth batch |
+
+Quote sizing limits inventory to ±20 units. The simulator includes balanced flow, a directional regime and an adverse-selection regime where eligible informed orders can anticipate the next reference-price move. The quoting agent cannot observe that future move.
+
+Fees are 0.05 ticks per traded unit. Final liquidation walks available depth, so liquidation value can differ materially from the displayed mark-to-market equity.
+
+## Recorded policy comparison
+
+Mean **liquidated net P&L**, in ticks, over 16 paired seeds:
+
+| Regime | Symmetric | Inventory skew | Delayed refresh |
+|---|---:|---:|---:|
+| Balanced | 1,058.34 | 560.69 | 384.84 |
+| Directional | 1,090.90 | 562.07 | 316.61 |
+| Adverse selection | 813.91 | 385.20 | 307.42 |
+
+Under these parameters, inventory skew underperforms symmetric quoting in all three regimes. That negative result is retained: reducing inventory exposure does not automatically improve this experiment's objective. The report includes paired differences and their standard errors.
+
+The animated 240-frame replay uses a separate illustrative seed. Its endpoint is not the 16-seed average in the table.
+
+## Reading the replay
+
+Start with the book and inventory traces, then compare marked equity with liquidation-adjusted results. Watch what happens when quotes become stale and when aggressive flow consumes multiple price levels. Export the recorded tables to inspect a policy's path outside the interface.
+
+## Model boundaries
+
+This is a synthetic market with stylized order flow and background liquidity. It does not reproduce a particular exchange, infer execution quality from historical market data or support a claim of a profitable trading strategy. Results depend on the chosen flow, replenishment, inventory and liquidation rules.
+
+## Run locally
+
+Use Python 3.12. From the repository root:
+
+```bash
+python -m venv .venv
+```
+
+Activate it with `.venv/Scripts/Activate.ps1` in PowerShell or
+`source .venv/bin/activate` on macOS/Linux. Then run:
+
+```bash
 python -m pip install -r requirements.txt
-python src/studio.py --out docs/study.json
 python -m http.server 8000 --directory docs
 ```
 
-Open `http://localhost:8000`. The static app fetches its local JSON, so use HTTP rather than opening `index.html` directly. No JavaScript build step or package installation is needed.
+Open
+<http://localhost:8000> to explore the bundled study without recomputing it.
 
-CI reproduces every applied case with `python src/studio.py --check docs/study.json`, checks numerical invariants and retains the original independent numerical contract. New applied code lives under `src/`; `lab.py` and its original CLI remain compatible for the existing research milestones.
+To regenerate the study or compare it with the saved artifact:
 
-## Recorded findings
-
-### Balanced flow
-
-- Managed net after liquidation: **607.9 ticks**
-- Paired improvement vs symmetric: **-497.644 ticks**
-- Paired difference standard error: **42.4132 ticks**
-- Cash / inventory violations: **0 **
-
-### Directional market
-
-- Managed net after liquidation: **611.9 ticks**
-- Paired improvement vs symmetric: **-528.831 ticks**
-- Paired difference standard error: **115.803 ticks**
-- Cash / inventory violations: **0 **
-
-### Informed flow
-
-- Managed net after liquidation: **367.5 ticks**
-- Paired improvement vs symmetric: **-428.706 ticks**
-- Paired difference standard error: **41.9002 ticks**
-- Cash / inventory violations: **0 **
-
-## Interpretation
-
-The inventory-skew policy reduces exposure but loses net outcome relative to symmetric quotes in these paired scenarios. This is a useful negative result: inventory control carries an opportunity cost, and stale quotes add a separate cost. The simulator does not establish which policy is best on real exchange data.
-
-## Design
-
-```mermaid
-flowchart LR
-  Inputs[Explicit inputs and seed] --> Engine[Python numerical engine]
-  Engine --> Checks[Domain invariants and reference comparisons]
-  Checks --> Artifact[docs/study.json]
-  Artifact --> UI[Static interactive studio]
-  Artifact --> CI[Independent reproduction in CI]
+```bash
+python src/studio.py --out docs/study.json
+python src/studio.py --check docs/study.json
 ```
 
+The browser displays recorded experiments; it does not run the Python simulation.
+Use its charts, case selector and data exports to inspect the results.
 
+## Explore the implementation
 
-## Scientific boundaries
-
-Entirely synthetic event stream. Matching uses the repository’s actual price/time-priority book; no fill-probability shortcut is used in these applied cases.
-
-- Synthetic event flow and exogenous reference prices are not calibrated exchange data. No claim of profitable live trading is made.
-- Background refreshes may trade against stale agent quotes; losses from those crossings are included. The agent does not control market impact or reference prices.
-- Latency is measured in event batches, not network nanoseconds. Hidden liquidity, auctions, credit limits and exchange-specific order types are omitted.
-- Recorded replay uses seed 1729; summary uncertainty uses separate paired seeds 100–115. Mark-to-mid equity differs from final liquidated net.
-
-## Next research questions
-
-- Implement TWAP execution against actual finite book depth, with arrival-price shortfall and matched market paths.
-- Add order-arrival timestamps and a deterministic latency queue; preserve queue priority under cancellations.
-- Confirm policy differences using fresh seeds and paired confidence intervals, including inventory and liquidation costs.
-
-## References
-
-- [High-frequency trading in a limit order book](https://www.math.nyu.edu/~avellane/HighFrequencyTrading.pdf)
-
-## Development history
-
-The original baseline and milestone reports are preserved under `reports/`; the applied study is a separate artifact. Results are measured simulations, not claims of live profitability, quantum advantage or independent research novelty. MIT license.
+- [Experiment implementation](src/studio.py)
+- [Recorded study](docs/study.json)
+- [Applied study report](reports/applied-study.md)
+- [References](REFERENCES.md)
+- [MIT license](LICENSE)
