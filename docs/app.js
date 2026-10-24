@@ -234,7 +234,9 @@ function replayFrame() {
   $("mid").textContent =
     `REFERENCE ${f.mid.toLocaleString()} ticks · ${f.flow.toUpperCase()} flow${f.informed ? " · informed" : ""}`;
   $("replay-values").innerHTML =
-    `<div><span>INVENTORY</span><strong>${f.inventory}</strong></div><div><span>MARKED EQUITY / TICKS</span><strong>${fmt(f.equity)}</strong></div>`;
+    f.residual !== undefined
+      ? `<div><span>EXECUTED INVENTORY</span><strong>${f.inventory}</strong></div><div><span>UNEXECUTED PARENT / UNITS</span><strong>${f.residual}</strong></div><div><span>ARRIVAL SHORTFALL / TICKS</span><strong>${fmt(f.shortfall)}</strong></div><div><span>FEES / TICKS</span><strong>${fmt(f.fees)}</strong></div>`
+      : `<div><span>INVENTORY</span><strong>${f.inventory}</strong></div><div><span>MARKED EQUITY / TICKS</span><strong>${fmt(f.equity)}</strong></div>`;
   $("replay-fills").textContent = f.fills.length
     ? f.fills
         .map((v) => `${v.side.toUpperCase()} ${v.quantity} @ ${v.price}`)

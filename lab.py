@@ -210,9 +210,12 @@ def order_book_experiment():
 
 
 def experiment():
+    from src.execution import execution_experiment
+
     return {"project": "market-microstructure-lab", "seed": 1729,
             "metrics": {"symmetric_quotes": simulate(inventory_skew=0), "inventory_skew": simulate()},
             "order_book": order_book_experiment(),
+            "execution": execution_experiment(),
             "provenance": {"data": "Synthetic Gaussian midprice moves and distance-dependent arrivals; separate synthetic order-book scenarios", "numpy": np.__version__},
             "limitations": ["Legacy policy metrics still use the quote-arrival model, independently of the new order book.",
                             "Order book is a single-instrument limit-order model without cancellation, amendments, auctions, hidden liquidity, latency, or self-trade prevention.",

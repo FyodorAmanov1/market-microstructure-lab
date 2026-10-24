@@ -310,6 +310,8 @@ def experiment():
                 "reproduce": "python src/studio.py --out docs/study.json",
             }
         )
+    from src.execution import studio_cases
+    cases.extend(studio_cases())
     return {
         "schema_version": 1,
         "slug": "market-microstructure-lab",
@@ -320,6 +322,14 @@ def experiment():
         "cases": cases,
         "provenance": "Entirely synthetic event stream. Matching uses the repository’s actual price/time-priority book; no fill-probability shortcut is used in these applied cases.",
         "references": [
+            {
+                "title": "Interactive Brokers: TWAP, catch-up and unfilled orders",
+                "url": "https://www.interactivebrokers.com/docs/general/order-types/algorithmic-orders/ib-algorithms/twap",
+            },
+            {
+                "title": "Almgren & Chriss: Optimal execution of portfolio transactions",
+                "url": "https://doi.org/10.21314/jor.2001.041",
+            },
             {
                 "title": "High-frequency trading in a limit order book",
                 "url": "https://www.math.nyu.edu/~avellane/HighFrequencyTrading.pdf",

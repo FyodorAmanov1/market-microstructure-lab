@@ -2,7 +2,7 @@
 
 ## Research question
 
-Build an auditable event-driven exchange and execution research instrument; realistic accounting comes before attractive P&L.
+How do queue dynamics, inventory control and execution timing affect costs when every trade must consume actual finite book depth?
 
 ## Reproduce
 
@@ -105,6 +105,12 @@ Explain the objective and units, where each baseline obtains its information, wh
 
 ## Next work
 
-- Implement TWAP execution against actual finite book depth, with arrival-price shortfall and matched market paths.
+- Extend finite-depth TWAP with persistent depth and sensitivity to replenishment rates; current execution findings are recorded in [MM02](MM02.md).
 - Add order-arrival timestamps and a deterministic latency queue; preserve queue priority under cancellations.
 - Confirm policy differences using fresh seeds and paired confidence intervals, including inventory and liquidation costs.
+
+## Finite-depth parent execution
+
+The studio now includes three matched-path TWAP comparisons against Sweep + retry. For 120-unit buys, balanced-flow mean arrival shortfall including fees is 389.50 ticks under TWAP versus 548.94 under the baseline; the paired TWAP-minus-baseline 95% t interval is [-313.71, -5.16] ticks. In the upward-drift regime, TWAP is more costly on average (745.69 versus 605.75), with an interval of [-14.22, 294.10] ticks that includes zero. Neither a universal TWAP benefit nor real-market performance is established.
+
+The 700-unit stress case exposes capacity rather than pretending to complete the order: both policies fill 575.875 units and leave 124.125 units on average. Residual opportunity cost is valued at the terminal reference midpoint and reported separately from actual fill costs and fees. It is not an executable liquidation value. All cases use synthetic paths, five finite levels per side and full background replenishment each batch. [MM02](MM02.md) gives the formulas, recorded seed, paired design and interpretation.
