@@ -45,6 +45,10 @@ The animated 240-frame replay uses a separate illustrative seed. Its endpoint is
 
 ## Reading the replay
 
+The three **TWAP** cases compare a finite-depth equal-time parent schedule with **Sweep + retry**, which releases the full order immediately and retries unfilled quantity until the same deadline. Select balanced, rising or capacity-stress execution in the studio. Replay fields show executed inventory, unexecuted parent units, fees and arrival-price shortfall; charts track completion and costs, and the CSV table exposes the cost decomposition.
+
+Across sixteen matched synthetic seeds (200–215), a 120-unit buy has mean shortfall of 389.50 ticks under TWAP versus 548.94 for Sweep + retry in the balanced case. With upward reference drift, TWAP costs 745.69 versus 605.75 ticks; the paired 95% interval includes zero. Both complete all 120 units and pay 6 ticks in fees. At 700 units, both consume all available capacity and leave 124.125 units unexecuted on average. These findings depend on full background replenishment each batch and do not establish live execution quality. See [the execution study](reports/MM02.md) for formulas, uncertainty and limitations.
+
 Start with the book and inventory traces, then compare marked equity with liquidation-adjusted results. Watch what happens when quotes become stale and when aggressive flow consumes multiple price levels. Export the recorded tables to inspect a policy's path outside the interface.
 
 ## Model boundaries
@@ -75,6 +79,8 @@ To regenerate the study or compare it with the saved artifact:
 ```bash
 python src/studio.py --out docs/study.json
 python src/studio.py --check docs/study.json
+python lab.py --output results/latest.json
+python -m unittest discover -s tests -v
 ```
 
 The browser displays recorded experiments; it does not run the Python simulation.

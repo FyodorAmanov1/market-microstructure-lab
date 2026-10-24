@@ -1,8 +1,15 @@
 {
-  "task_id": "MM01",
+  "task_id": "MM02",
   "status": "completed",
-  "summary": "Implemented a separate integer-tick price-time FIFO limit order book with partial fills, crossing orders, resting-price execution, and exact zero-fee cash/inventory accounting. All 15 tests pass, including a 1,500-order independent matching oracle. Regenerated results include a six-order trace and 1,000 synthetic orders with zero checked invariant violations. Existing simulator interfaces and negative policy-equity comparison are preserved.",
+  "summary": "Implemented finite-depth TWAP parent execution with cumulative targets, IOC children and catch-up, compared with immediate sweep plus retry on matched synthetic paths. Reports arrival-price implementation shortfall, filled costs, fees, terminal opportunity cost and unexecuted inventory. Added three studio cases and preserved legacy cases. Balanced-flow benefit, rising-market negative mean comparison and capacity-driven identical outcomes are retained with paired confidence intervals.",
   "evidence_paths": [
+    "src/execution.py",
+    "src/studio.py",
+    "tests/test_execution.py",
+    "docs/study.json",
+    "docs/app.js",
+    "reports/MM02.md",
+    "reports/applied-study.md",
     "lab.py",
     "tests/test_lab.py",
     "tests/test_order_book.py",
