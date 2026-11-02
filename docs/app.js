@@ -239,9 +239,13 @@ function replayFrame() {
       : `<div><span>INVENTORY</span><strong>${f.inventory}</strong></div><div><span>MARKED EQUITY / TICKS</span><strong>${fmt(f.equity)}</strong></div>`;
   $("replay-fills").textContent = f.fills.length
     ? f.fills
-        .map((v) => `${v.side.toUpperCase()} ${v.quantity} @ ${v.price}`)
+        .map((v) => `${v.side.toUpperCase()} ${v.quantity} @ ${v.price}${v.timestamp !== undefined ? ` / t=${v.timestamp}` : ""}${v.stale ? " / CANCEL PENDING" : ""}`)
         .join(" · ")
     : "No agent fills in this batch.";
+  if (f.stale_quantity !== undefined) {
+    $("replay-values").innerHTML +=
+      `<div><span>CUMULATIVE STALE FILLED UNITS</span><strong>${fmt(f.stale_quantity)}</strong></div>`;
+  }
 }
 $("replay-range").oninput = () => {
   stop();

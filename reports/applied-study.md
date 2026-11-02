@@ -106,11 +106,21 @@ Explain the objective and units, where each baseline obtains its information, wh
 ## Next work
 
 - Extend finite-depth TWAP with persistent depth and sensitivity to replenishment rates; current execution findings are recorded in [MM02](MM02.md).
-- Add order-arrival timestamps and a deterministic latency queue; preserve queue priority under cancellations.
+- Test sensitivity of the timestamped latency queue to delay jitter, persistent depth and alternative external-flow assumptions; the fixed-delay comparison is recorded in [MM03](MM03.md).
 - Confirm policy differences using fresh seeds and paired confidence intervals, including inventory and liquidation costs.
 
 ## Finite-depth parent execution
 
+The timestamped queue comparison is documented below and in [MM03](MM03.md); the TWAP cases retain their original timing and results.
+
 The studio now includes three matched-path TWAP comparisons against Sweep + retry. For 120-unit buys, balanced-flow mean arrival shortfall including fees is 389.50 ticks under TWAP versus 548.94 under the baseline; the paired TWAP-minus-baseline 95% t interval is [-313.71, -5.16] ticks. In the upward-drift regime, TWAP is more costly on average (745.69 versus 605.75), with an interval of [-14.22, 294.10] ticks that includes zero. Neither a universal TWAP benefit nor real-market performance is established.
 
 The 700-unit stress case exposes capacity rather than pretending to complete the order: both policies fill 575.875 units and leave 124.125 units on average. Residual opportunity cost is valued at the terminal reference midpoint and reported separately from actual fill costs and fees. It is not an executable liquidation value. All cases use synthetic paths, five finite levels per side and full background replenishment each batch. [MM02](MM02.md) gives the formulas, recorded seed, paired design and interpretation.
+
+## Timestamped cancellation races
+
+The studio's two cancel-latency cases use a deterministic queue ordered by exchange arrival timestamp, then enqueue sequence. Submission and cancellation have separate send and arrival times; cancellation never changes the FIFO position of surviving orders. A cancel arriving before its target submission misses and requires an explicit retry. Pending-cancel fills retain executed-quantity accounting and timestamps. This is distinct from the earlier five-batch refresh-cadence cases.
+
+Holding submission delay at two abstract units, sixteen paired seeds 300–315 compare immediate cancellation with a six-unit delay. Balanced mean liquidated net is 277.81875 ticks for immediate cancellation and 360.88750 for delayed cancellation: a difference of +83.06875, with paired 95% interval [52.87179, 113.26571]. Rising mean net is 317.27500 versus 325.05625: +7.78125, interval [-41.54661, 57.10911]. Delayed mean stale executed quantity is respectively 153.1875 and 147.375 units; immediate cancellation produces zero. All ledgers pass cash/inventory checks and end flat after finite-depth liquidation, including 0.05 tick/unit fees.
+
+The expectation that cancellation delay must reduce net value is not supported by this synthetic comparison. Old and new quotes overlap before cancellation arrives, allowing more spread capture; inventory capacity is reserved for live orders, so replacement sizes can differ. Stale midpoint markout is positive on average and is attribution already included in equity, never an additional P&L item. Replenishment, fixed delays and exogenous flow strongly shape this result. It establishes neither a real-market benefit from latency nor exchange-specific accuracy. [MM03](MM03.md) provides costs, uncertainty, protocol boundaries and replay interpretation.
