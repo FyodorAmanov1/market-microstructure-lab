@@ -10,6 +10,7 @@ Market Replay Studio combines an event-driven exchange model with an interactive
 
 - Integer-tick prices and quantities, price–time priority and partial fills.
 - Maker-price execution and owner-checked order cancellation.
+- Timestamped submission/cancellation queue, deterministic arrival/sequence ordering and pending-cancel fill accounting.
 - Separate cash and inventory accounts, with aggregate conservation checks after each event batch.
 - Background liquidity at five levels and finite-depth liquidation at the end of a run.
 
@@ -52,6 +53,8 @@ Across sixteen matched synthetic seeds (200–215), a 120-unit buy has mean shor
 Start with the book and inventory traces, then compare marked equity with liquidation-adjusted results. Watch what happens when quotes become stale and when aggressive flow consumes multiple price levels. Export the recorded tables to inspect a policy's path outside the interface.
 
 ## Model boundaries
+
+The two **Cancel latency** studio cases hold submission delay at two abstract units and compare immediate with six-unit cancellation delay. Over sixteen matched seeds (300–315), delayed cancellation increases stale executed quantity to 153.1875 units in balanced flow and 147.375 in rising flow. Mean liquidated net differences are +83.07 ticks (95% paired interval [52.87, 113.27]) and +7.78 ticks ([-41.55, 57.11]). Stale fills are not necessarily harmful: old/new quote overlap captures additional modeled spread, and the rising comparison is unresolved. Fees and liquidation costs are included. The replay shows timestamps and pending-cancel fills; [MM03](reports/MM03.md) documents the message rules and limitations. The earlier delayed-refresh policy remains a separate cadence experiment.
 
 This is a synthetic market with stylized order flow and background liquidity. It does not reproduce a particular exchange, infer execution quality from historical market data or support a claim of a profitable trading strategy. Results depend on the chosen flow, replenishment, inventory and liquidation rules.
 

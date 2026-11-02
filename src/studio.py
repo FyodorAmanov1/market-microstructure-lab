@@ -1,6 +1,5 @@
 """Event-driven price/time-priority replay with cancellations and paired policy runs."""
 
-from collections import deque
 from pathlib import Path
 import sys
 
@@ -15,21 +14,6 @@ except ImportError:
 
 
 class ReplayBook(LimitOrderBook):
-    def cancel(self, order_id, owner):
-        for levels in (self._bids, self._asks):
-            for price, queue in list(levels.items()):
-                found = next((o for o in queue if o.order_id == order_id), None)
-                if found:
-                    if found.owner != owner:
-                        raise ValueError("Only the owner can cancel")
-                    kept = deque(o for o in queue if o.order_id != order_id)
-                    if kept:
-                        levels[price] = kept
-                    else:
-                        del levels[price]
-                    return found.remaining
-        return 0
-
     def cancel_owner(self, owner):
         for order in self.orders:
             if order.owner == owner:
@@ -238,7 +222,7 @@ def experiment():
                             for name, r in [
                                 ("Symmetric", baseline),
                                 ("Inventory skew", managed),
-                                ("Skew + 4-batch latency", delayed),
+                                ("Skew + five-batch refresh", delayed),
                             ]
                         ],
                     },
@@ -298,7 +282,7 @@ def experiment():
                 "method": [
                     "Orders match at the resting price, best price then FIFO. Partial fills and owner-checked cancellations use the same book as the replay, with integer price/quantity accounting.",
                     "All trader accounts conserve aggregate cash and inventory after every batch. Agent fees are a separate external charge of 0.05 tick/unit; the net ledger includes that fee sink. Final liquidation executes through five refreshed LP levels, ten units each, starting at mid ±3 ticks. Price slippage and fees are included.",
-                    "Inventory is bounded at ±20 units through quote sizing. Latency means quotes refresh every five batches; background liquidity and marketable external orders continue each batch.",
+                    "Inventory is bounded at ±20 units through quote sizing. This legacy delayed policy refreshes every five batches; timestamped message latency is studied in the separate cancel-latency cases.",
                     "Sixteen independent seeds compare policies with identical pre-generated price, order-size and flow draws. In the adverse regime, 70% of eligible flow is informed by the next reference move; this privileged signal is unavailable to the agent.",
                 ],
                 "limitations": [
@@ -312,6 +296,8 @@ def experiment():
         )
     from src.execution import studio_cases
     cases.extend(studio_cases())
+    from src.latency_study import studio_cases as latency_cases
+    cases.extend(latency_cases())
     return {
         "schema_version": 1,
         "slug": "market-microstructure-lab",
@@ -322,6 +308,10 @@ def experiment():
         "cases": cases,
         "provenance": "Entirely synthetic event stream. Matching uses the repository’s actual price/time-priority book; no fill-probability shortcut is used in these applied cases.",
         "references": [
+            {
+                "title": "Nasdaq OUCH 4.2: order entry, cancellations and exchange timestamps",
+                "url": "https://nasdaqtrader.com/content/technicalsupport/specifications/TradingProducts/OUCH4.2.pdf",
+            },
             {
                 "title": "Interactive Brokers: TWAP, catch-up and unfilled orders",
                 "url": "https://www.interactivebrokers.com/docs/general/order-types/algorithmic-orders/ib-algorithms/twap",

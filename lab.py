@@ -87,6 +87,22 @@ class LimitOrderBook:
     def trades(self):
         return tuple(self._trades)
 
+    def cancel(self, order_id, owner):
+        """Remove one resting order without changing surviving FIFO priority."""
+        for levels in (self._bids, self._asks):
+            for price, queue in list(levels.items()):
+                found = next((o for o in queue if o.order_id == order_id), None)
+                if found:
+                    if found.owner != owner:
+                        raise ValueError("Only the owner can cancel")
+                    kept = deque(o for o in queue if o.order_id != order_id)
+                    if kept:
+                        levels[price] = kept
+                    else:
+                        del levels[price]
+                    return found.remaining
+        return 0
+
     def submit(self, side, price, quantity, owner="anonymous"):
         """Accept an order and return (order snapshot, tuple of new trades).
 
@@ -211,17 +227,19 @@ def order_book_experiment():
 
 def experiment():
     from src.execution import execution_experiment
+    from src.latency_study import latency_experiment
 
     return {"project": "market-microstructure-lab", "seed": 1729,
             "metrics": {"symmetric_quotes": simulate(inventory_skew=0), "inventory_skew": simulate()},
             "order_book": order_book_experiment(),
             "execution": execution_experiment(),
+            "latency": latency_experiment(),
             "provenance": {"data": "Synthetic Gaussian midprice moves and distance-dependent arrivals; separate synthetic order-book scenarios", "numpy": np.__version__},
             "limitations": ["Legacy policy metrics still use the quote-arrival model, independently of the new order book.",
-                            "Order book is a single-instrument limit-order model without cancellation, amendments, auctions, hidden liquidity, latency, or self-trade prevention.",
+                            "Order book is a single-instrument limit-order model; the latency study adds a deterministic message queue, without amendments, auctions, hidden liquidity or self-trade prevention.",
                             "No calibrated adverse-selection, market-impact, or endogenous order-flow model.",
                             "Order-book accounting assumes zero fees/costs and unlimited credit/shorting; legacy simulator charges 0.001 per filled unit.",
-                            "Terminal inventory is marked at mid without liquidation costs; simulated PnL is not evidence of tradability."]}
+                            "Legacy terminal inventory is marked at mid without liquidation costs; applied quoting and latency cases liquidate through finite depth. Simulated PnL is not evidence of tradability."]}
 
 
 if __name__ == "__main__":
