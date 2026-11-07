@@ -298,6 +298,8 @@ def experiment():
     cases.extend(studio_cases())
     from src.latency_study import studio_cases as latency_cases
     cases.extend(latency_cases())
+    from src.confirmation import studio_cases as confirmation_cases
+    cases.extend(confirmation_cases())
     return {
         "schema_version": 1,
         "slug": "market-microstructure-lab",
@@ -308,6 +310,10 @@ def experiment():
         "cases": cases,
         "provenance": "Entirely synthetic event stream. Matching uses the repository’s actual price/time-priority book; no fill-probability shortcut is used in these applied cases.",
         "references": [
+            {
+                "title": "NIST: confidence intervals for paired mean differences",
+                "url": "https://www.itl.nist.gov/div898/handbook/prc/section3/prc312.htm",
+            },
             {
                 "title": "Nasdaq OUCH 4.2: order entry, cancellations and exchange timestamps",
                 "url": "https://nasdaqtrader.com/content/technicalsupport/specifications/TradingProducts/OUCH4.2.pdf",

@@ -42530,6 +42530,3376 @@
       "other_costs": "No funding, borrow or calibrated market impact"
     }
   },
+  "confirmation": {
+    "plan": {
+      "study_id": "MM04",
+      "question": "Does the previously observed net-versus-inventory tradeoff persist on new paired synthetic paths?",
+      "freeze_scope": "Existing policies and simulator fixed before evaluating the listed confirmation seeds; no external preregistration or timestamp authority is claimed.",
+      "engine_sha256": "ddce0c5da0025161c325d292300c73e9402cfc6b14fdde9b0d631845fa65b436",
+      "policies": [
+        {
+          "id": "symmetric",
+          "label": "Symmetric",
+          "skew": 0,
+          "refresh_latency": 0
+        },
+        {
+          "id": "inventory_skew",
+          "label": "Inventory skew",
+          "skew": 0.35,
+          "refresh_latency": 0
+        },
+        {
+          "id": "delayed_refresh",
+          "label": "Delayed refresh",
+          "skew": 0.35,
+          "refresh_latency": 4
+        }
+      ],
+      "regimes": [
+        "balanced",
+        "trend",
+        "adverse"
+      ],
+      "steps": 240,
+      "confirmation_seeds": [
+        400,
+        401,
+        402,
+        403,
+        404,
+        405,
+        406,
+        407,
+        408,
+        409,
+        410,
+        411,
+        412,
+        413,
+        414,
+        415,
+        416,
+        417,
+        418,
+        419,
+        420,
+        421,
+        422,
+        423,
+        424,
+        425,
+        426,
+        427,
+        428,
+        429,
+        430,
+        431
+      ],
+      "excluded_seeds": [
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        200,
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        207,
+        208,
+        209,
+        210,
+        211,
+        212,
+        213,
+        214,
+        215,
+        300,
+        301,
+        302,
+        303,
+        304,
+        305,
+        306,
+        307,
+        308,
+        309,
+        310,
+        311,
+        312,
+        313,
+        314,
+        315,
+        1729
+      ],
+      "primary_outcomes": [
+        "net",
+        "mean_abs_inventory"
+      ],
+      "secondary_outcomes": [
+        "liquidation_cost",
+        "fees",
+        "max_inventory"
+      ],
+      "exposure_definition": "Arithmetic mean of absolute end-of-batch inventory across all 240 batches before liquidation, including zero inventory.",
+      "contrasts": "Inventory skew minus symmetric and delayed refresh minus symmetric, separately in each regime.",
+      "interval": "Pointwise two-sided 95% Student t, sample sd with ddof=1, df=31; pair before estimating uncertainty; no multiplicity adjustment.",
+      "interpretation_rule": "For each contrast and regime, upper net interval below zero and upper exposure interval below zero confirms lower net with lower exposure. Otherwise retain the unresolved or opposite finding. No aggregate winner or policy retuning.",
+      "sample_rule": "Exactly 32 seeds per regime; no optional stopping or dropping seeds.",
+      "costs": {
+        "fee_per_traded_unit": 0.05,
+        "liquidation": "Five refreshed finite levels per side at terminal mid +/-3..7, ten units each; liquidation fees included in net.",
+        "funding_and_borrow": 0
+      },
+      "data": "Synthetic pre-generated draws shared by policies within seed and regime; regimes reuse seeds and are not independent replicates."
+    },
+    "plan_sha256": "c9b7917b5e2df451faeab440bd4f2285540f7d9674a2b9c2d2bad00d729e5483",
+    "cases": [
+      {
+        "regime": "balanced",
+        "paired": [
+          {
+            "seed": 400,
+            "runs": {
+              "symmetric": {
+                "net": 956.8000000000001,
+                "mean_abs_inventory": 12.070833333333333,
+                "liquidation_cost": 24.399999999999977,
+                "fees": 28.19999999999995,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 559.5,
+                "mean_abs_inventory": 2.1333333333333333,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 19.500000000000007,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 355.8,
+                "mean_abs_inventory": 1.6666666666666667,
+                "liquidation_cost": 3.0499999999999545,
+                "fees": 11.20000000000001,
+                "max_inventory": 5
+              }
+            }
+          },
+          {
+            "seed": 401,
+            "runs": {
+              "symmetric": {
+                "net": 1351.1000000000001,
+                "mean_abs_inventory": 10.954166666666667,
+                "liquidation_cost": 34.549999999999955,
+                "fees": 28.89999999999995,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 610.2,
+                "mean_abs_inventory": 1.95,
+                "liquidation_cost": 12.199999999999932,
+                "fees": 20.79999999999999,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 443.2,
+                "mean_abs_inventory": 1.5,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 12.800000000000013,
+                "max_inventory": 4
+              }
+            }
+          },
+          {
+            "seed": 402,
+            "runs": {
+              "symmetric": {
+                "net": 822.4,
+                "mean_abs_inventory": 9.983333333333333,
+                "liquidation_cost": 66.95000000000005,
+                "fees": 28.599999999999973,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 574.5,
+                "mean_abs_inventory": 2.1125,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 21.499999999999993,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 463.59999999999997,
+                "mean_abs_inventory": 2.029166666666667,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 12.400000000000015,
+                "max_inventory": 7
+              }
+            }
+          },
+          {
+            "seed": 403,
+            "runs": {
+              "symmetric": {
+                "net": 926.0,
+                "mean_abs_inventory": 9.125,
+                "liquidation_cost": 71.0,
+                "fees": 28.99999999999998,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 610.0,
+                "mean_abs_inventory": 2.0083333333333333,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 20.00000000000001,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 378.5,
+                "mean_abs_inventory": 1.8791666666666667,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 12.500000000000016,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 404,
+            "runs": {
+              "symmetric": {
+                "net": 1231.0,
+                "mean_abs_inventory": 12.416666666666666,
+                "liquidation_cost": 54.799999999999955,
+                "fees": 28.999999999999986,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 586.9,
+                "mean_abs_inventory": 1.9375,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 21.100000000000005,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 448.09999999999997,
+                "mean_abs_inventory": 1.4833333333333334,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 12.900000000000015,
+                "max_inventory": 4
+              }
+            }
+          },
+          {
+            "seed": 405,
+            "runs": {
+              "symmetric": {
+                "net": 1152.0,
+                "mean_abs_inventory": 9.695833333333333,
+                "liquidation_cost": 27.450000000000045,
+                "fees": 27.99999999999998,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 605.5,
+                "mean_abs_inventory": 2.2583333333333333,
+                "liquidation_cost": 12.200000000000045,
+                "fees": 20.50000000000001,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 300.9,
+                "mean_abs_inventory": 1.6375,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 11.100000000000014,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 406,
+            "runs": {
+              "symmetric": {
+                "net": 975.9,
+                "mean_abs_inventory": 11.245833333333334,
+                "liquidation_cost": 12.200000000000045,
+                "fees": 28.099999999999977,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 604.0,
+                "mean_abs_inventory": 1.875,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 21.000000000000004,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 405.59999999999997,
+                "mean_abs_inventory": 1.7125,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 12.400000000000011,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 407,
+            "runs": {
+              "symmetric": {
+                "net": 1114.6000000000001,
+                "mean_abs_inventory": 8.0,
+                "liquidation_cost": 71.0,
+                "fees": 30.39999999999996,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 637.0,
+                "mean_abs_inventory": 2.15,
+                "liquidation_cost": 12.200000000000045,
+                "fees": 21.000000000000004,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 399.2,
+                "mean_abs_inventory": 1.925,
+                "liquidation_cost": 9.149999999999977,
+                "fees": 12.800000000000015,
+                "max_inventory": 8
+              }
+            }
+          },
+          {
+            "seed": 408,
+            "runs": {
+              "symmetric": {
+                "net": 979.3000000000001,
+                "mean_abs_inventory": 6.9875,
+                "liquidation_cost": 12.200000000000045,
+                "fees": 30.699999999999932,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 569.4,
+                "mean_abs_inventory": 1.975,
+                "liquidation_cost": 12.200000000000045,
+                "fees": 21.599999999999998,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 326.0,
+                "mean_abs_inventory": 1.75,
+                "liquidation_cost": 6.099999999999966,
+                "fees": 12.000000000000012,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 409,
+            "runs": {
+              "symmetric": {
+                "net": 967.6,
+                "mean_abs_inventory": 11.570833333333333,
+                "liquidation_cost": 12.200000000000045,
+                "fees": 28.399999999999977,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 675.5,
+                "mean_abs_inventory": 2.033333333333333,
+                "liquidation_cost": 3.0499999999999545,
+                "fees": 20.50000000000001,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 372.0,
+                "mean_abs_inventory": 2.35,
+                "liquidation_cost": 0.0,
+                "fees": 12.00000000000002,
+                "max_inventory": 10
+              }
+            }
+          },
+          {
+            "seed": 410,
+            "runs": {
+              "symmetric": {
+                "net": 783.2,
+                "mean_abs_inventory": 10.354166666666666,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 28.79999999999998,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 521.1,
+                "mean_abs_inventory": 2.2083333333333335,
+                "liquidation_cost": 9.149999999999977,
+                "fees": 20.89999999999999,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 321.4,
+                "mean_abs_inventory": 2.1708333333333334,
+                "liquidation_cost": 15.25,
+                "fees": 12.600000000000017,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 411,
+            "runs": {
+              "symmetric": {
+                "net": 958.6,
+                "mean_abs_inventory": 8.3,
+                "liquidation_cost": 70.99999999999989,
+                "fees": 29.399999999999977,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 624.3,
+                "mean_abs_inventory": 2.129166666666667,
+                "liquidation_cost": 9.150000000000091,
+                "fees": 19.700000000000006,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 398.59999999999997,
+                "mean_abs_inventory": 1.9875,
+                "liquidation_cost": 15.25,
+                "fees": 12.400000000000011,
+                "max_inventory": 7
+              }
+            }
+          },
+          {
+            "seed": 412,
+            "runs": {
+              "symmetric": {
+                "net": 1403.8,
+                "mean_abs_inventory": 9.175,
+                "liquidation_cost": 9.150000000000091,
+                "fees": 28.199999999999978,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 519.6,
+                "mean_abs_inventory": 2.0875,
+                "liquidation_cost": 9.149999999999977,
+                "fees": 19.399999999999995,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 380.2,
+                "mean_abs_inventory": 1.5916666666666666,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 12.800000000000013,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 413,
+            "runs": {
+              "symmetric": {
+                "net": 1104.3,
+                "mean_abs_inventory": 7.345833333333333,
+                "liquidation_cost": 12.200000000000045,
+                "fees": 29.699999999999967,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 590.8,
+                "mean_abs_inventory": 2.1375,
+                "liquidation_cost": 9.150000000000091,
+                "fees": 19.20000000000001,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 376.5,
+                "mean_abs_inventory": 2.0875,
+                "liquidation_cost": 0.0,
+                "fees": 11.50000000000001,
+                "max_inventory": 10
+              }
+            }
+          },
+          {
+            "seed": 414,
+            "runs": {
+              "symmetric": {
+                "net": 972.8000000000001,
+                "mean_abs_inventory": 8.725,
+                "liquidation_cost": 27.449999999999932,
+                "fees": 29.199999999999974,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 683.0,
+                "mean_abs_inventory": 1.9791666666666667,
+                "liquidation_cost": 3.0499999999999545,
+                "fees": 22.999999999999996,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 418.8,
+                "mean_abs_inventory": 1.9125,
+                "liquidation_cost": 9.149999999999977,
+                "fees": 13.200000000000014,
+                "max_inventory": 7
+              }
+            }
+          },
+          {
+            "seed": 415,
+            "runs": {
+              "symmetric": {
+                "net": 1212.7,
+                "mean_abs_inventory": 12.954166666666667,
+                "liquidation_cost": 71.0,
+                "fees": 26.299999999999986,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 654.2,
+                "mean_abs_inventory": 2.0375,
+                "liquidation_cost": 12.199999999999932,
+                "fees": 19.8,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 360.4,
+                "mean_abs_inventory": 2.183333333333333,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 11.600000000000007,
+                "max_inventory": 7
+              }
+            }
+          },
+          {
+            "seed": 416,
+            "runs": {
+              "symmetric": {
+                "net": 793.2,
+                "mean_abs_inventory": 8.841666666666667,
+                "liquidation_cost": 42.64999999999998,
+                "fees": 27.799999999999965,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 512.4,
+                "mean_abs_inventory": 2.0458333333333334,
+                "liquidation_cost": 3.050000000000068,
+                "fees": 19.600000000000012,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 319.09999999999997,
+                "mean_abs_inventory": 2.1875,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 11.90000000000001,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 417,
+            "runs": {
+              "symmetric": {
+                "net": 1200.6,
+                "mean_abs_inventory": 12.183333333333334,
+                "liquidation_cost": 15.25,
+                "fees": 27.399999999999988,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 533.4,
+                "mean_abs_inventory": 2.225,
+                "liquidation_cost": 0.0,
+                "fees": 19.599999999999998,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 363.7,
+                "mean_abs_inventory": 2.2958333333333334,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 11.300000000000011,
+                "max_inventory": 7
+              }
+            }
+          },
+          {
+            "seed": 418,
+            "runs": {
+              "symmetric": {
+                "net": 1106.7,
+                "mean_abs_inventory": 9.733333333333333,
+                "liquidation_cost": 15.25,
+                "fees": 30.29999999999996,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 540.9,
+                "mean_abs_inventory": 2.125,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 19.100000000000012,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 374.5,
+                "mean_abs_inventory": 1.7958333333333334,
+                "liquidation_cost": 0.0,
+                "fees": 12.50000000000001,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 419,
+            "runs": {
+              "symmetric": {
+                "net": 1249.4,
+                "mean_abs_inventory": 8.116666666666667,
+                "liquidation_cost": 6.099999999999909,
+                "fees": 29.59999999999995,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 657.3000000000001,
+                "mean_abs_inventory": 1.9458333333333333,
+                "liquidation_cost": 6.099999999999909,
+                "fees": 22.699999999999974,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 478.09999999999997,
+                "mean_abs_inventory": 1.9,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 12.900000000000013,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 420,
+            "runs": {
+              "symmetric": {
+                "net": 1145.0,
+                "mean_abs_inventory": 11.125,
+                "liquidation_cost": 21.350000000000136,
+                "fees": 26.999999999999975,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 526.3,
+                "mean_abs_inventory": 2.279166666666667,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 18.70000000000002,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 380.4,
+                "mean_abs_inventory": 2.004166666666667,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 11.600000000000009,
+                "max_inventory": 7
+              }
+            }
+          },
+          {
+            "seed": 421,
+            "runs": {
+              "symmetric": {
+                "net": 1139.3,
+                "mean_abs_inventory": 9.241666666666667,
+                "liquidation_cost": 50.75,
+                "fees": 29.699999999999964,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 639.8,
+                "mean_abs_inventory": 2.0166666666666666,
+                "liquidation_cost": 0.0,
+                "fees": 20.199999999999996,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 374.7,
+                "mean_abs_inventory": 1.975,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 12.300000000000013,
+                "max_inventory": 5
+              }
+            }
+          },
+          {
+            "seed": 422,
+            "runs": {
+              "symmetric": {
+                "net": 1325.6000000000001,
+                "mean_abs_inventory": 10.704166666666667,
+                "liquidation_cost": 18.299999999999955,
+                "fees": 29.399999999999963,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 684.8,
+                "mean_abs_inventory": 1.9958333333333333,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 22.199999999999992,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 428.09999999999997,
+                "mean_abs_inventory": 1.6958333333333333,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 12.900000000000013,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 423,
+            "runs": {
+              "symmetric": {
+                "net": 1003.9,
+                "mean_abs_inventory": 12.95,
+                "liquidation_cost": 58.85000000000002,
+                "fees": 28.099999999999984,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 600.2,
+                "mean_abs_inventory": 2.091666666666667,
+                "liquidation_cost": 3.0499999999999545,
+                "fees": 20.799999999999994,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 263.0,
+                "mean_abs_inventory": 1.9708333333333334,
+                "liquidation_cost": 18.30000000000001,
+                "fees": 12.00000000000001,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 424,
+            "runs": {
+              "symmetric": {
+                "net": 1128.0,
+                "mean_abs_inventory": 8.991666666666667,
+                "liquidation_cost": 3.0499999999999545,
+                "fees": 28.99999999999998,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 665.1,
+                "mean_abs_inventory": 1.9666666666666666,
+                "liquidation_cost": 3.0499999999999545,
+                "fees": 21.899999999999984,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 370.8,
+                "mean_abs_inventory": 2.6458333333333335,
+                "liquidation_cost": 0.0,
+                "fees": 12.200000000000012,
+                "max_inventory": 9
+              }
+            }
+          },
+          {
+            "seed": 425,
+            "runs": {
+              "symmetric": {
+                "net": 1246.4,
+                "mean_abs_inventory": 9.966666666666667,
+                "liquidation_cost": 21.34999999999991,
+                "fees": 28.59999999999999,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 633.9,
+                "mean_abs_inventory": 2.154166666666667,
+                "liquidation_cost": 0.0,
+                "fees": 20.100000000000016,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 435.59999999999997,
+                "mean_abs_inventory": 1.8375,
+                "liquidation_cost": 0.0,
+                "fees": 12.400000000000015,
+                "max_inventory": 5
+              }
+            }
+          },
+          {
+            "seed": 426,
+            "runs": {
+              "symmetric": {
+                "net": 1182.3,
+                "mean_abs_inventory": 10.2625,
+                "liquidation_cost": 50.75,
+                "fees": 28.69999999999999,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 624.7,
+                "mean_abs_inventory": 1.9625,
+                "liquidation_cost": 6.099999999999909,
+                "fees": 22.3,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 435.09999999999997,
+                "mean_abs_inventory": 1.3791666666666667,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 12.900000000000018,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 427,
+            "runs": {
+              "symmetric": {
+                "net": 1118.5,
+                "mean_abs_inventory": 8.5,
+                "liquidation_cost": 71.0,
+                "fees": 31.49999999999995,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 622.4,
+                "mean_abs_inventory": 2.05,
+                "liquidation_cost": 9.149999999999977,
+                "fees": 21.59999999999999,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 391.9,
+                "mean_abs_inventory": 1.9958333333333333,
+                "liquidation_cost": 9.150000000000034,
+                "fees": 12.100000000000012,
+                "max_inventory": 9
+              }
+            }
+          },
+          {
+            "seed": 428,
+            "runs": {
+              "symmetric": {
+                "net": 1553.7,
+                "mean_abs_inventory": 11.666666666666666,
+                "liquidation_cost": 15.25,
+                "fees": 27.29999999999999,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 707.4,
+                "mean_abs_inventory": 2.1041666666666665,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 20.599999999999998,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 433.3,
+                "mean_abs_inventory": 1.5791666666666666,
+                "liquidation_cost": 3.0499999999999545,
+                "fees": 12.700000000000015,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 429,
+            "runs": {
+              "symmetric": {
+                "net": 1381.8,
+                "mean_abs_inventory": 6.758333333333334,
+                "liquidation_cost": 3.050000000000182,
+                "fees": 29.199999999999964,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 643.4,
+                "mean_abs_inventory": 1.9791666666666667,
+                "liquidation_cost": 0.0,
+                "fees": 20.599999999999994,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 416.7,
+                "mean_abs_inventory": 1.8333333333333333,
+                "liquidation_cost": 9.149999999999977,
+                "fees": 12.300000000000013,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 430,
+            "runs": {
+              "symmetric": {
+                "net": 948.8000000000001,
+                "mean_abs_inventory": 9.383333333333333,
+                "liquidation_cost": 15.25,
+                "fees": 28.199999999999974,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 557.5,
+                "mean_abs_inventory": 2.05,
+                "liquidation_cost": 0.0,
+                "fees": 21.499999999999996,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 431.2,
+                "mean_abs_inventory": 1.6833333333333333,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 12.800000000000013,
+                "max_inventory": 5
+              }
+            }
+          },
+          {
+            "seed": 431,
+            "runs": {
+              "symmetric": {
+                "net": 1099.9,
+                "mean_abs_inventory": 11.0625,
+                "liquidation_cost": 71.0,
+                "fees": 30.099999999999966,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 676.3,
+                "mean_abs_inventory": 1.9375,
+                "liquidation_cost": 9.150000000000091,
+                "fees": 21.7,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 433.3,
+                "mean_abs_inventory": 1.8958333333333333,
+                "liquidation_cost": 6.099999999999966,
+                "fees": 12.70000000000001,
+                "max_inventory": 6
+              }
+            }
+          }
+        ],
+        "summaries": {
+          "symmetric": {
+            "net": {
+              "n": 32,
+              "mean": 1110.475,
+              "standard_error": 32.13304405376637,
+              "ci95": [
+                1044.9392245786953,
+                1176.0107754213045
+              ]
+            },
+            "mean_abs_inventory": {
+              "n": 32,
+              "mean": 9.949739583333333,
+              "standard_error": 0.299365434662992,
+              "ci95": [
+                9.339179753951855,
+                10.56029941271481
+              ]
+            },
+            "liquidation_cost": {
+              "n": 32,
+              "mean": 33.214062500000004,
+              "standard_error": 4.388884209995171,
+              "ci95": [
+                24.26287413903798,
+                42.16525086096203
+              ]
+            },
+            "fees": {
+              "n": 32,
+              "mean": 28.83749999999997,
+              "standard_error": 0.19683739400179714,
+              "ci95": [
+                28.43604748817968,
+                29.238952511820262
+              ]
+            },
+            "max_inventory": {
+              "n": 32,
+              "mean": 20.0,
+              "standard_error": 0.0,
+              "ci95": [
+                20.0,
+                20.0
+              ]
+            }
+          },
+          "inventory_skew": {
+            "net": {
+              "n": 32,
+              "mean": 607.853125,
+              "standard_error": 9.660216245549904,
+              "ci95": [
+                588.1509840721039,
+                627.555265927896
+              ]
+            },
+            "mean_abs_inventory": {
+              "n": 32,
+              "mean": 2.060677083333333,
+              "standard_error": 0.01792047336638749,
+              "ci95": [
+                2.0241280369367973,
+                2.097226129729869
+              ]
+            },
+            "liquidation_cost": {
+              "n": 32,
+              "mean": 6.1953125000000036,
+              "standard_error": 0.6913468599196556,
+              "ci95": [
+                4.785301283069932,
+                7.605323716930075
+              ]
+            },
+            "fees": {
+              "n": 32,
+              "mean": 20.709375,
+              "standard_error": 0.19366787411367234,
+              "ci95": [
+                20.31438676661016,
+                21.104363233389844
+              ]
+            },
+            "max_inventory": {
+              "n": 32,
+              "mean": 4.0,
+              "standard_error": 0.0,
+              "ci95": [
+                4.0,
+                4.0
+              ]
+            }
+          },
+          "delayed_refresh": {
+            "net": {
+              "n": 32,
+              "mean": 389.946875,
+              "standard_error": 8.674686226982088,
+              "ci95": [
+                372.2547357968003,
+                407.6390142031997
+              ]
+            },
+            "mean_abs_inventory": {
+              "n": 32,
+              "mean": 1.8919270833333335,
+              "standard_error": 0.04849317801662525,
+              "ci95": [
+                1.7930245947099317,
+                1.9908295719567353
+              ]
+            },
+            "liquidation_cost": {
+              "n": 32,
+              "mean": 5.051562500000001,
+              "standard_error": 0.8056675639892139,
+              "ci95": [
+                3.4083926699185607,
+                6.694732330081441
+              ]
+            },
+            "fees": {
+              "n": 32,
+              "mean": 12.303125000000012,
+              "standard_error": 0.09801295740129683,
+              "ci95": [
+                12.103226255458988,
+                12.503023744541036
+              ]
+            },
+            "max_inventory": {
+              "n": 32,
+              "mean": 6.4375,
+              "standard_error": 0.2576941016011038,
+              "ci95": [
+                5.911929414727506,
+                6.963070585272494
+              ]
+            }
+          }
+        },
+        "differences_vs_symmetric": {
+          "inventory_skew": {
+            "net": {
+              "n": 32,
+              "mean": -502.62187500000005,
+              "standard_error": 29.787246179652758,
+              "ci95": [
+                -563.3733641145219,
+                -441.87038588547824
+              ]
+            },
+            "mean_abs_inventory": {
+              "n": 32,
+              "mean": -7.8890625,
+              "standard_error": 0.29829420197781203,
+              "ci95": [
+                -8.497437535915832,
+                -7.280687464084166
+              ]
+            },
+            "liquidation_cost": {
+              "n": 32,
+              "mean": -27.01875,
+              "standard_error": 4.241822511106019,
+              "ci95": [
+                -35.6700040486277,
+                -18.367495951372298
+              ]
+            },
+            "fees": {
+              "n": 32,
+              "mean": -8.12812499999997,
+              "standard_error": 0.21869454942357364,
+              "ci95": [
+                -8.574155474202954,
+                -7.682094525796988
+              ]
+            },
+            "max_inventory": {
+              "n": 32,
+              "mean": -16.0,
+              "standard_error": 0.0,
+              "ci95": [
+                -16.0,
+                -16.0
+              ]
+            }
+          },
+          "delayed_refresh": {
+            "net": {
+              "n": 32,
+              "mean": -720.528125,
+              "standard_error": 29.9562403410452,
+              "ci95": [
+                -781.6242799790442,
+                -659.4319700209559
+              ]
+            },
+            "mean_abs_inventory": {
+              "n": 32,
+              "mean": -8.057812499999999,
+              "standard_error": 0.30632398151373263,
+              "ci95": [
+                -8.682564379250941,
+                -7.433060620749057
+              ]
+            },
+            "liquidation_cost": {
+              "n": 32,
+              "mean": -28.1625,
+              "standard_error": 4.196724913548655,
+              "ci95": [
+                -36.72177689200929,
+                -19.60322310799072
+              ]
+            },
+            "fees": {
+              "n": 32,
+              "mean": -16.534374999999958,
+              "standard_error": 0.1870618199846433,
+              "ci95": [
+                -16.915890097166024,
+                -16.152859902833892
+              ]
+            },
+            "max_inventory": {
+              "n": 32,
+              "mean": -13.5625,
+              "standard_error": 0.2576941016011038,
+              "ci95": [
+                -14.088070585272494,
+                -13.036929414727506
+              ]
+            }
+          }
+        }
+      },
+      {
+        "regime": "trend",
+        "paired": [
+          {
+            "seed": 400,
+            "runs": {
+              "symmetric": {
+                "net": 489.80000000000007,
+                "mean_abs_inventory": 12.070833333333333,
+                "liquidation_cost": 24.399999999999977,
+                "fees": 28.19999999999995,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 520.5,
+                "mean_abs_inventory": 2.1333333333333333,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 19.500000000000007,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 327.4,
+                "mean_abs_inventory": 1.7708333333333333,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 11.60000000000001,
+                "max_inventory": 5
+              }
+            }
+          },
+          {
+            "seed": 401,
+            "runs": {
+              "symmetric": {
+                "net": 1078.1000000000001,
+                "mean_abs_inventory": 10.954166666666667,
+                "liquidation_cost": 34.549999999999955,
+                "fees": 28.89999999999995,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 627.2,
+                "mean_abs_inventory": 1.95,
+                "liquidation_cost": 12.199999999999932,
+                "fees": 20.79999999999999,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 447.3,
+                "mean_abs_inventory": 1.3833333333333333,
+                "liquidation_cost": 0.0,
+                "fees": 12.700000000000012,
+                "max_inventory": 4
+              }
+            }
+          },
+          {
+            "seed": 402,
+            "runs": {
+              "symmetric": {
+                "net": 1250.4,
+                "mean_abs_inventory": 9.983333333333333,
+                "liquidation_cost": 66.95000000000005,
+                "fees": 28.599999999999973,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 601.5,
+                "mean_abs_inventory": 2.1125,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 21.499999999999993,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 444.5,
+                "mean_abs_inventory": 1.7583333333333333,
+                "liquidation_cost": 6.099999999999966,
+                "fees": 12.500000000000012,
+                "max_inventory": 5
+              }
+            }
+          },
+          {
+            "seed": 403,
+            "runs": {
+              "symmetric": {
+                "net": 642.0,
+                "mean_abs_inventory": 9.125,
+                "liquidation_cost": 71.0,
+                "fees": 28.99999999999998,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 606.0,
+                "mean_abs_inventory": 2.0083333333333333,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 20.00000000000001,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 294.9,
+                "mean_abs_inventory": 1.9625,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 12.10000000000001,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 404,
+            "runs": {
+              "symmetric": {
+                "net": 1352.0,
+                "mean_abs_inventory": 12.416666666666666,
+                "liquidation_cost": 54.799999999999955,
+                "fees": 28.999999999999986,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 581.9,
+                "mean_abs_inventory": 1.9375,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 21.100000000000005,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 331.59999999999997,
+                "mean_abs_inventory": 1.7125,
+                "liquidation_cost": 0.0,
+                "fees": 12.400000000000015,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 405,
+            "runs": {
+              "symmetric": {
+                "net": 1643.0,
+                "mean_abs_inventory": 9.695833333333333,
+                "liquidation_cost": 27.450000000000045,
+                "fees": 27.99999999999998,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 650.5,
+                "mean_abs_inventory": 2.2583333333333333,
+                "liquidation_cost": 12.200000000000045,
+                "fees": 20.50000000000001,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 333.2,
+                "mean_abs_inventory": 1.8041666666666667,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 11.800000000000013,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 406,
+            "runs": {
+              "symmetric": {
+                "net": 545.9,
+                "mean_abs_inventory": 11.245833333333334,
+                "liquidation_cost": 12.200000000000045,
+                "fees": 28.099999999999977,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 594.0,
+                "mean_abs_inventory": 1.875,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 21.000000000000004,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 416.8,
+                "mean_abs_inventory": 1.8333333333333333,
+                "liquidation_cost": 3.0499999999999545,
+                "fees": 12.20000000000001,
+                "max_inventory": 7
+              }
+            }
+          },
+          {
+            "seed": 407,
+            "runs": {
+              "symmetric": {
+                "net": 1053.6000000000001,
+                "mean_abs_inventory": 8.0,
+                "liquidation_cost": 71.0,
+                "fees": 30.39999999999996,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 658.0,
+                "mean_abs_inventory": 2.15,
+                "liquidation_cost": 12.200000000000045,
+                "fees": 21.000000000000004,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 322.59999999999997,
+                "mean_abs_inventory": 2.558333333333333,
+                "liquidation_cost": 9.150000000000034,
+                "fees": 12.400000000000013,
+                "max_inventory": 8
+              }
+            }
+          },
+          {
+            "seed": 408,
+            "runs": {
+              "symmetric": {
+                "net": 961.3000000000001,
+                "mean_abs_inventory": 6.9875,
+                "liquidation_cost": 12.200000000000045,
+                "fees": 30.699999999999932,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 566.4,
+                "mean_abs_inventory": 1.975,
+                "liquidation_cost": 12.200000000000045,
+                "fees": 21.599999999999998,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 341.4,
+                "mean_abs_inventory": 1.825,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 12.600000000000012,
+                "max_inventory": 5
+              }
+            }
+          },
+          {
+            "seed": 409,
+            "runs": {
+              "symmetric": {
+                "net": 689.6,
+                "mean_abs_inventory": 11.570833333333333,
+                "liquidation_cost": 12.200000000000045,
+                "fees": 28.399999999999977,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 664.5,
+                "mean_abs_inventory": 2.033333333333333,
+                "liquidation_cost": 3.0499999999999545,
+                "fees": 20.50000000000001,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 307.0,
+                "mean_abs_inventory": 2.5125,
+                "liquidation_cost": 3.0499999999999545,
+                "fees": 12.000000000000018,
+                "max_inventory": 11
+              }
+            }
+          },
+          {
+            "seed": 410,
+            "runs": {
+              "symmetric": {
+                "net": 729.2,
+                "mean_abs_inventory": 10.354166666666666,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 28.79999999999998,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 506.1,
+                "mean_abs_inventory": 2.2083333333333335,
+                "liquidation_cost": 9.149999999999977,
+                "fees": 20.89999999999999,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 172.7,
+                "mean_abs_inventory": 2.8041666666666667,
+                "liquidation_cost": 12.199999999999989,
+                "fees": 12.300000000000015,
+                "max_inventory": 8
+              }
+            }
+          },
+          {
+            "seed": 411,
+            "runs": {
+              "symmetric": {
+                "net": 745.6,
+                "mean_abs_inventory": 8.3,
+                "liquidation_cost": 71.0,
+                "fees": 29.399999999999977,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 639.3,
+                "mean_abs_inventory": 2.129166666666667,
+                "liquidation_cost": 9.150000000000091,
+                "fees": 19.700000000000006,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 397.4,
+                "mean_abs_inventory": 1.7125,
+                "liquidation_cost": 18.30000000000001,
+                "fees": 12.600000000000012,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 412,
+            "runs": {
+              "symmetric": {
+                "net": 1276.8,
+                "mean_abs_inventory": 9.175,
+                "liquidation_cost": 9.150000000000091,
+                "fees": 28.199999999999978,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 503.6,
+                "mean_abs_inventory": 2.0875,
+                "liquidation_cost": 9.149999999999977,
+                "fees": 19.399999999999995,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 250.49999999999997,
+                "mean_abs_inventory": 2.9625,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 12.500000000000016,
+                "max_inventory": 9
+              }
+            }
+          },
+          {
+            "seed": 413,
+            "runs": {
+              "symmetric": {
+                "net": 1140.3,
+                "mean_abs_inventory": 7.345833333333333,
+                "liquidation_cost": 12.200000000000045,
+                "fees": 29.699999999999967,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 607.8,
+                "mean_abs_inventory": 2.1375,
+                "liquidation_cost": 9.150000000000091,
+                "fees": 19.20000000000001,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 345.09999999999997,
+                "mean_abs_inventory": 1.8,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 11.900000000000013,
+                "max_inventory": 8
+              }
+            }
+          },
+          {
+            "seed": 414,
+            "runs": {
+              "symmetric": {
+                "net": 547.8000000000001,
+                "mean_abs_inventory": 8.725,
+                "liquidation_cost": 27.449999999999932,
+                "fees": 29.199999999999974,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 684.0,
+                "mean_abs_inventory": 1.9791666666666667,
+                "liquidation_cost": 3.0499999999999545,
+                "fees": 22.999999999999996,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 301.09999999999997,
+                "mean_abs_inventory": 2.191666666666667,
+                "liquidation_cost": 12.200000000000045,
+                "fees": 12.900000000000011,
+                "max_inventory": 7
+              }
+            }
+          },
+          {
+            "seed": 415,
+            "runs": {
+              "symmetric": {
+                "net": 1858.7,
+                "mean_abs_inventory": 12.954166666666667,
+                "liquidation_cost": 71.0,
+                "fees": 26.299999999999986,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 672.2,
+                "mean_abs_inventory": 2.0375,
+                "liquidation_cost": 12.199999999999932,
+                "fees": 19.8,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 343.9,
+                "mean_abs_inventory": 2.1083333333333334,
+                "liquidation_cost": 9.150000000000034,
+                "fees": 12.100000000000009,
+                "max_inventory": 7
+              }
+            }
+          },
+          {
+            "seed": 416,
+            "runs": {
+              "symmetric": {
+                "net": 1094.2,
+                "mean_abs_inventory": 8.841666666666667,
+                "liquidation_cost": 42.65000000000009,
+                "fees": 27.799999999999965,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 536.4,
+                "mean_abs_inventory": 2.0458333333333334,
+                "liquidation_cost": 3.050000000000068,
+                "fees": 19.600000000000012,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 260.4,
+                "mean_abs_inventory": 1.8291666666666666,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 11.60000000000001,
+                "max_inventory": 5
+              }
+            }
+          },
+          {
+            "seed": 417,
+            "runs": {
+              "symmetric": {
+                "net": 1279.6,
+                "mean_abs_inventory": 12.183333333333334,
+                "liquidation_cost": 15.25,
+                "fees": 27.399999999999988,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 538.4,
+                "mean_abs_inventory": 2.225,
+                "liquidation_cost": 0.0,
+                "fees": 19.599999999999998,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 303.4,
+                "mean_abs_inventory": 2.2958333333333334,
+                "liquidation_cost": 0.0,
+                "fees": 10.60000000000001,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 418,
+            "runs": {
+              "symmetric": {
+                "net": 1067.7,
+                "mean_abs_inventory": 9.733333333333333,
+                "liquidation_cost": 15.25,
+                "fees": 30.29999999999996,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 549.9,
+                "mean_abs_inventory": 2.125,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 19.100000000000012,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 287.09999999999997,
+                "mean_abs_inventory": 2.1958333333333333,
+                "liquidation_cost": 0.0,
+                "fees": 11.900000000000011,
+                "max_inventory": 7
+              }
+            }
+          },
+          {
+            "seed": 419,
+            "runs": {
+              "symmetric": {
+                "net": 962.4000000000001,
+                "mean_abs_inventory": 8.116666666666667,
+                "liquidation_cost": 6.099999999999909,
+                "fees": 29.59999999999995,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 644.3000000000001,
+                "mean_abs_inventory": 1.9458333333333333,
+                "liquidation_cost": 6.099999999999909,
+                "fees": 22.699999999999974,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 407.09999999999997,
+                "mean_abs_inventory": 1.6041666666666667,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 12.900000000000015,
+                "max_inventory": 5
+              }
+            }
+          },
+          {
+            "seed": 420,
+            "runs": {
+              "symmetric": {
+                "net": 868.0,
+                "mean_abs_inventory": 11.125,
+                "liquidation_cost": 21.350000000000023,
+                "fees": 26.999999999999975,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 512.3,
+                "mean_abs_inventory": 2.279166666666667,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 18.70000000000002,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 304.7,
+                "mean_abs_inventory": 2.1125,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 11.300000000000006,
+                "max_inventory": 8
+              }
+            }
+          },
+          {
+            "seed": 421,
+            "runs": {
+              "symmetric": {
+                "net": 1424.3,
+                "mean_abs_inventory": 9.241666666666667,
+                "liquidation_cost": 50.75,
+                "fees": 29.699999999999964,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 646.8,
+                "mean_abs_inventory": 2.0166666666666666,
+                "liquidation_cost": 0.0,
+                "fees": 20.199999999999996,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 341.8,
+                "mean_abs_inventory": 1.7083333333333333,
+                "liquidation_cost": 6.099999999999966,
+                "fees": 12.200000000000014,
+                "max_inventory": 5
+              }
+            }
+          },
+          {
+            "seed": 422,
+            "runs": {
+              "symmetric": {
+                "net": 1914.6000000000001,
+                "mean_abs_inventory": 10.704166666666667,
+                "liquidation_cost": 18.299999999999955,
+                "fees": 29.399999999999963,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 710.8,
+                "mean_abs_inventory": 1.9958333333333333,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 22.199999999999992,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 349.2,
+                "mean_abs_inventory": 1.8708333333333333,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 12.800000000000015,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 423,
+            "runs": {
+              "symmetric": {
+                "net": 549.9,
+                "mean_abs_inventory": 12.95,
+                "liquidation_cost": 58.85000000000002,
+                "fees": 28.099999999999984,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 582.2,
+                "mean_abs_inventory": 2.091666666666667,
+                "liquidation_cost": 3.0499999999999545,
+                "fees": 20.799999999999994,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 167.0,
+                "mean_abs_inventory": 2.2666666666666666,
+                "liquidation_cost": 27.44999999999999,
+                "fees": 12.000000000000009,
+                "max_inventory": 9
+              }
+            }
+          },
+          {
+            "seed": 424,
+            "runs": {
+              "symmetric": {
+                "net": 1213.0,
+                "mean_abs_inventory": 8.991666666666667,
+                "liquidation_cost": 3.0499999999999545,
+                "fees": 28.99999999999998,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 661.1,
+                "mean_abs_inventory": 1.9666666666666666,
+                "liquidation_cost": 3.0499999999999545,
+                "fees": 21.899999999999984,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 332.2,
+                "mean_abs_inventory": 1.7791666666666666,
+                "liquidation_cost": 9.149999999999977,
+                "fees": 12.800000000000015,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 425,
+            "runs": {
+              "symmetric": {
+                "net": 1005.4,
+                "mean_abs_inventory": 9.966666666666667,
+                "liquidation_cost": 21.350000000000023,
+                "fees": 28.59999999999999,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 613.9,
+                "mean_abs_inventory": 2.154166666666667,
+                "liquidation_cost": 0.0,
+                "fees": 20.100000000000016,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 384.7,
+                "mean_abs_inventory": 1.8791666666666667,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 12.300000000000017,
+                "max_inventory": 5
+              }
+            }
+          },
+          {
+            "seed": 426,
+            "runs": {
+              "symmetric": {
+                "net": 693.3,
+                "mean_abs_inventory": 10.2625,
+                "liquidation_cost": 50.75,
+                "fees": 28.69999999999999,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 595.7,
+                "mean_abs_inventory": 1.9625,
+                "liquidation_cost": 6.099999999999909,
+                "fees": 22.3,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 369.09999999999997,
+                "mean_abs_inventory": 1.7791666666666666,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 12.900000000000016,
+                "max_inventory": 5
+              }
+            }
+          },
+          {
+            "seed": 427,
+            "runs": {
+              "symmetric": {
+                "net": 1023.5,
+                "mean_abs_inventory": 8.5,
+                "liquidation_cost": 71.0,
+                "fees": 31.49999999999995,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 619.4,
+                "mean_abs_inventory": 2.05,
+                "liquidation_cost": 9.149999999999977,
+                "fees": 21.59999999999999,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 370.09999999999997,
+                "mean_abs_inventory": 1.6041666666666667,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 11.900000000000011,
+                "max_inventory": 5
+              }
+            }
+          },
+          {
+            "seed": 428,
+            "runs": {
+              "symmetric": {
+                "net": 1677.7,
+                "mean_abs_inventory": 11.666666666666666,
+                "liquidation_cost": 15.25,
+                "fees": 27.29999999999999,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 715.4,
+                "mean_abs_inventory": 2.1041666666666665,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 20.599999999999998,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 295.9,
+                "mean_abs_inventory": 1.8,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 12.100000000000009,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 429,
+            "runs": {
+              "symmetric": {
+                "net": 1434.8,
+                "mean_abs_inventory": 6.758333333333334,
+                "liquidation_cost": 3.050000000000182,
+                "fees": 29.199999999999964,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 647.4,
+                "mean_abs_inventory": 1.9791666666666667,
+                "liquidation_cost": 0.0,
+                "fees": 20.599999999999994,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 377.9,
+                "mean_abs_inventory": 1.8541666666666667,
+                "liquidation_cost": 9.150000000000034,
+                "fees": 12.100000000000014,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 430,
+            "runs": {
+              "symmetric": {
+                "net": 1288.8,
+                "mean_abs_inventory": 9.383333333333333,
+                "liquidation_cost": 15.25,
+                "fees": 28.199999999999974,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 565.5,
+                "mean_abs_inventory": 2.05,
+                "liquidation_cost": 0.0,
+                "fees": 21.499999999999996,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 382.4,
+                "mean_abs_inventory": 1.4458333333333333,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 12.60000000000001,
+                "max_inventory": 4
+              }
+            }
+          },
+          {
+            "seed": 431,
+            "runs": {
+              "symmetric": {
+                "net": 1254.9,
+                "mean_abs_inventory": 11.0625,
+                "liquidation_cost": 71.0,
+                "fees": 30.099999999999966,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 668.3,
+                "mean_abs_inventory": 1.9375,
+                "liquidation_cost": 9.150000000000091,
+                "fees": 21.7,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 352.09999999999997,
+                "mean_abs_inventory": 2.35,
+                "liquidation_cost": 15.25,
+                "fees": 12.900000000000011,
+                "max_inventory": 6
+              }
+            }
+          }
+        ],
+        "summaries": {
+          "symmetric": {
+            "net": {
+              "n": 32,
+              "mean": 1086.1312500000001,
+              "standard_error": 67.40183968328706,
+              "ci95": [
+                948.6642916540811,
+                1223.5982083459191
+              ]
+            },
+            "mean_abs_inventory": {
+              "n": 32,
+              "mean": 9.949739583333333,
+              "standard_error": 0.299365434662992,
+              "ci95": [
+                9.339179753951855,
+                10.56029941271481
+              ]
+            },
+            "liquidation_cost": {
+              "n": 32,
+              "mean": 33.21406250000001,
+              "standard_error": 4.388884209995172,
+              "ci95": [
+                24.262874139037983,
+                42.16525086096204
+              ]
+            },
+            "fees": {
+              "n": 32,
+              "mean": 28.83749999999997,
+              "standard_error": 0.19683739400179714,
+              "ci95": [
+                28.43604748817968,
+                29.238952511820262
+              ]
+            },
+            "max_inventory": {
+              "n": 32,
+              "mean": 20.0,
+              "standard_error": 0.0,
+              "ci95": [
+                20.0,
+                20.0
+              ]
+            }
+          },
+          "inventory_skew": {
+            "net": {
+              "n": 32,
+              "mean": 609.103125,
+              "standard_error": 10.459472944740284,
+              "ci95": [
+                587.7708892869828,
+                630.4353607130172
+              ]
+            },
+            "mean_abs_inventory": {
+              "n": 32,
+              "mean": 2.060677083333333,
+              "standard_error": 0.01792047336638749,
+              "ci95": [
+                2.0241280369367973,
+                2.097226129729869
+              ]
+            },
+            "liquidation_cost": {
+              "n": 32,
+              "mean": 6.1953125000000036,
+              "standard_error": 0.6913468599196556,
+              "ci95": [
+                4.785301283069932,
+                7.605323716930075
+              ]
+            },
+            "fees": {
+              "n": 32,
+              "mean": 20.709375,
+              "standard_error": 0.19366787411367234,
+              "ci95": [
+                20.31438676661016,
+                21.104363233389844
+              ]
+            },
+            "max_inventory": {
+              "n": 32,
+              "mean": 4.0,
+              "standard_error": 0.0,
+              "ci95": [
+                4.0,
+                4.0
+              ]
+            }
+          },
+          "delayed_refresh": {
+            "net": {
+              "n": 32,
+              "mean": 333.20312499999994,
+              "standard_error": 11.305068165085867,
+              "ci95": [
+                310.1462864648794,
+                356.2599635351205
+              ]
+            },
+            "mean_abs_inventory": {
+              "n": 32,
+              "mean": 1.9710937499999999,
+              "standard_error": 0.06522936550502349,
+              "ci95": [
+                1.8380575819525984,
+                2.104129918047401
+              ]
+            },
+            "liquidation_cost": {
+              "n": 32,
+              "mean": 6.290625000000006,
+              "standard_error": 1.0333755892060428,
+              "ci95": [
+                4.183041590636471,
+                8.39820840936354
+              ]
+            },
+            "fees": {
+              "n": 32,
+              "mean": 12.234375000000012,
+              "standard_error": 0.09142789497652642,
+              "ci95": [
+                12.047906578819669,
+                12.420843421180356
+              ]
+            },
+            "max_inventory": {
+              "n": 32,
+              "mean": 6.3125,
+              "standard_error": 0.2783791653077136,
+              "ci95": [
+                5.74474194915831,
+                6.88025805084169
+              ]
+            }
+          }
+        },
+        "differences_vs_symmetric": {
+          "inventory_skew": {
+            "net": {
+              "n": 32,
+              "mean": -477.02812500000005,
+              "standard_error": 63.99135010132086,
+              "ci95": [
+                -607.539343984704,
+                -346.51690601529606
+              ]
+            },
+            "mean_abs_inventory": {
+              "n": 32,
+              "mean": -7.8890625,
+              "standard_error": 0.29829420197781203,
+              "ci95": [
+                -8.497437535915832,
+                -7.280687464084166
+              ]
+            },
+            "liquidation_cost": {
+              "n": 32,
+              "mean": -27.018750000000008,
+              "standard_error": 4.241822511106021,
+              "ci95": [
+                -35.67000404862771,
+                -18.367495951372305
+              ]
+            },
+            "fees": {
+              "n": 32,
+              "mean": -8.12812499999997,
+              "standard_error": 0.21869454942357364,
+              "ci95": [
+                -8.574155474202954,
+                -7.682094525796988
+              ]
+            },
+            "max_inventory": {
+              "n": 32,
+              "mean": -16.0,
+              "standard_error": 0.0,
+              "ci95": [
+                -16.0,
+                -16.0
+              ]
+            }
+          },
+          "delayed_refresh": {
+            "net": {
+              "n": 32,
+              "mean": -752.9281250000001,
+              "standard_error": 66.38838411234214,
+              "ci95": [
+                -888.3281270816516,
+                -617.5281229183487
+              ]
+            },
+            "mean_abs_inventory": {
+              "n": 32,
+              "mean": -7.978645833333333,
+              "standard_error": 0.2960754152774222,
+              "ci95": [
+                -8.582495623939035,
+                -7.37479604272763
+              ]
+            },
+            "liquidation_cost": {
+              "n": 32,
+              "mean": -26.923437500000006,
+              "standard_error": 4.150078934572259,
+              "ci95": [
+                -35.38757929066661,
+                -18.459295709333404
+              ]
+            },
+            "fees": {
+              "n": 32,
+              "mean": -16.603124999999956,
+              "standard_error": 0.18052814402826428,
+              "ci95": [
+                -16.971314577198587,
+                -16.234935422801325
+              ]
+            },
+            "max_inventory": {
+              "n": 32,
+              "mean": -13.6875,
+              "standard_error": 0.2783791653077136,
+              "ci95": [
+                -14.25525805084169,
+                -13.11974194915831
+              ]
+            }
+          }
+        }
+      },
+      {
+        "regime": "adverse",
+        "paired": [
+          {
+            "seed": 400,
+            "runs": {
+              "symmetric": {
+                "net": 602.2,
+                "mean_abs_inventory": 9.529166666666667,
+                "liquidation_cost": 34.549999999999955,
+                "fees": 29.79999999999995,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 407.3,
+                "mean_abs_inventory": 2.0375,
+                "liquidation_cost": 9.149999999999977,
+                "fees": 21.69999999999999,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 290.7,
+                "mean_abs_inventory": 1.9208333333333334,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 11.300000000000008,
+                "max_inventory": 7
+              }
+            }
+          },
+          {
+            "seed": 401,
+            "runs": {
+              "symmetric": {
+                "net": 1303.6000000000001,
+                "mean_abs_inventory": 8.070833333333333,
+                "liquidation_cost": 15.25,
+                "fees": 29.39999999999994,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 430.5,
+                "mean_abs_inventory": 1.9458333333333333,
+                "liquidation_cost": 12.199999999999989,
+                "fees": 21.499999999999986,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 410.4,
+                "mean_abs_inventory": 1.5541666666666667,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 12.600000000000014,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 402,
+            "runs": {
+              "symmetric": {
+                "net": 1017.6,
+                "mean_abs_inventory": 9.033333333333333,
+                "liquidation_cost": 3.050000000000068,
+                "fees": 29.399999999999952,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 403.8,
+                "mean_abs_inventory": 2.1333333333333333,
+                "liquidation_cost": 9.149999999999977,
+                "fees": 21.199999999999992,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 284.6,
+                "mean_abs_inventory": 2.2708333333333335,
+                "liquidation_cost": 6.099999999999966,
+                "fees": 11.400000000000006,
+                "max_inventory": 9
+              }
+            }
+          },
+          {
+            "seed": 403,
+            "runs": {
+              "symmetric": {
+                "net": 476.9,
+                "mean_abs_inventory": 12.304166666666667,
+                "liquidation_cost": 30.5,
+                "fees": 27.1,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 273.09999999999997,
+                "mean_abs_inventory": 2.1625,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 18.900000000000016,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 251.89999999999998,
+                "mean_abs_inventory": 2.35,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 11.100000000000012,
+                "max_inventory": 7
+              }
+            }
+          },
+          {
+            "seed": 404,
+            "runs": {
+              "symmetric": {
+                "net": 968.4,
+                "mean_abs_inventory": 9.55,
+                "liquidation_cost": 12.200000000000045,
+                "fees": 28.59999999999998,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 350.2,
+                "mean_abs_inventory": 2.2083333333333335,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 19.800000000000004,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 303.0,
+                "mean_abs_inventory": 2.175,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 11.000000000000009,
+                "max_inventory": 7
+              }
+            }
+          },
+          {
+            "seed": 405,
+            "runs": {
+              "symmetric": {
+                "net": 851.9000000000001,
+                "mean_abs_inventory": 5.175,
+                "liquidation_cost": 3.0499999999999545,
+                "fees": 30.099999999999948,
+                "max_inventory": 17
+              },
+              "inventory_skew": {
+                "net": 409.6,
+                "mean_abs_inventory": 2.0625,
+                "liquidation_cost": 9.149999999999977,
+                "fees": 22.399999999999995,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 253.9,
+                "mean_abs_inventory": 1.55,
+                "liquidation_cost": 15.249999999999972,
+                "fees": 11.100000000000007,
+                "max_inventory": 5
+              }
+            }
+          },
+          {
+            "seed": 406,
+            "runs": {
+              "symmetric": {
+                "net": 725.2,
+                "mean_abs_inventory": 8.9875,
+                "liquidation_cost": 27.449999999999932,
+                "fees": 28.79999999999997,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 383.59999999999997,
+                "mean_abs_inventory": 2.0166666666666666,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 20.400000000000013,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 352.7,
+                "mean_abs_inventory": 1.8375,
+                "liquidation_cost": 0.0,
+                "fees": 12.300000000000011,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 407,
+            "runs": {
+              "symmetric": {
+                "net": 854.9000000000001,
+                "mean_abs_inventory": 8.5875,
+                "liquidation_cost": 24.399999999999977,
+                "fees": 29.099999999999955,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 393.59999999999997,
+                "mean_abs_inventory": 2.254166666666667,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 19.40000000000001,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 239.29999999999998,
+                "mean_abs_inventory": 2.875,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 10.70000000000001,
+                "max_inventory": 10
+              }
+            }
+          },
+          {
+            "seed": 408,
+            "runs": {
+              "symmetric": {
+                "net": 515.5,
+                "mean_abs_inventory": 11.183333333333334,
+                "liquidation_cost": 71.0,
+                "fees": 29.499999999999954,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 341.4,
+                "mean_abs_inventory": 2.1416666666666666,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 20.599999999999998,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 238.6,
+                "mean_abs_inventory": 2.6166666666666667,
+                "liquidation_cost": 12.199999999999989,
+                "fees": 11.40000000000001,
+                "max_inventory": 9
+              }
+            }
+          },
+          {
+            "seed": 409,
+            "runs": {
+              "symmetric": {
+                "net": 415.8,
+                "mean_abs_inventory": 10.55,
+                "liquidation_cost": 12.199999999999989,
+                "fees": 27.199999999999978,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 361.7,
+                "mean_abs_inventory": 2.125,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 19.30000000000001,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 183.29999999999998,
+                "mean_abs_inventory": 3.129166666666667,
+                "liquidation_cost": 0.0,
+                "fees": 10.70000000000001,
+                "max_inventory": 9
+              }
+            }
+          },
+          {
+            "seed": 410,
+            "runs": {
+              "symmetric": {
+                "net": 593.5,
+                "mean_abs_inventory": 8.175,
+                "liquidation_cost": 30.5,
+                "fees": 29.49999999999998,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 266.9,
+                "mean_abs_inventory": 2.0625,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 19.1,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 254.2,
+                "mean_abs_inventory": 1.9166666666666667,
+                "liquidation_cost": 12.199999999999989,
+                "fees": 11.80000000000001,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 411,
+            "runs": {
+              "symmetric": {
+                "net": 759.9,
+                "mean_abs_inventory": 7.670833333333333,
+                "liquidation_cost": 71.0,
+                "fees": 30.099999999999973,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 445.59999999999997,
+                "mean_abs_inventory": 1.9625,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 21.40000000000001,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 344.2,
+                "mean_abs_inventory": 1.7875,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 11.80000000000001,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 412,
+            "runs": {
+              "symmetric": {
+                "net": 982.5,
+                "mean_abs_inventory": 8.554166666666667,
+                "liquidation_cost": 24.399999999999977,
+                "fees": 28.49999999999997,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 334.6,
+                "mean_abs_inventory": 1.9958333333333333,
+                "liquidation_cost": 6.099999999999966,
+                "fees": 20.4,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 206.29999999999998,
+                "mean_abs_inventory": 2.5458333333333334,
+                "liquidation_cost": 9.150000000000006,
+                "fees": 10.70000000000001,
+                "max_inventory": 7
+              }
+            }
+          },
+          {
+            "seed": 413,
+            "runs": {
+              "symmetric": {
+                "net": 923.1,
+                "mean_abs_inventory": 8.391666666666667,
+                "liquidation_cost": 9.149999999999977,
+                "fees": 29.899999999999963,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 394.9,
+                "mean_abs_inventory": 1.9791666666666667,
+                "liquidation_cost": 9.150000000000034,
+                "fees": 20.100000000000005,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 352.3,
+                "mean_abs_inventory": 1.8041666666666667,
+                "liquidation_cost": 3.0499999999999545,
+                "fees": 11.700000000000012,
+                "max_inventory": 7
+              }
+            }
+          },
+          {
+            "seed": 414,
+            "runs": {
+              "symmetric": {
+                "net": 521.7,
+                "mean_abs_inventory": 8.316666666666666,
+                "liquidation_cost": 46.69999999999993,
+                "fees": 29.299999999999972,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 387.2,
+                "mean_abs_inventory": 1.9208333333333334,
+                "liquidation_cost": 9.150000000000034,
+                "fees": 20.800000000000004,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 297.0,
+                "mean_abs_inventory": 1.6416666666666666,
+                "liquidation_cost": 9.149999999999977,
+                "fees": 12.000000000000009,
+                "max_inventory": 7
+              }
+            }
+          },
+          {
+            "seed": 415,
+            "runs": {
+              "symmetric": {
+                "net": 832.4000000000001,
+                "mean_abs_inventory": 11.3125,
+                "liquidation_cost": 58.84999999999991,
+                "fees": 29.599999999999955,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 307.5,
+                "mean_abs_inventory": 2.1958333333333333,
+                "liquidation_cost": 12.199999999999989,
+                "fees": 19.499999999999996,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 212.2,
+                "mean_abs_inventory": 2.425,
+                "liquidation_cost": 12.200000000000017,
+                "fees": 10.800000000000002,
+                "max_inventory": 9
+              }
+            }
+          },
+          {
+            "seed": 416,
+            "runs": {
+              "symmetric": {
+                "net": 546.3000000000001,
+                "mean_abs_inventory": 12.6875,
+                "liquidation_cost": 71.0,
+                "fees": 26.699999999999967,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 338.5,
+                "mean_abs_inventory": 1.925,
+                "liquidation_cost": 9.149999999999977,
+                "fees": 19.500000000000004,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 194.7,
+                "mean_abs_inventory": 2.7708333333333335,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 10.300000000000006,
+                "max_inventory": 9
+              }
+            }
+          },
+          {
+            "seed": 417,
+            "runs": {
+              "symmetric": {
+                "net": 1015.8000000000001,
+                "mean_abs_inventory": 9.825,
+                "liquidation_cost": 18.300000000000068,
+                "fees": 28.19999999999997,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 344.5,
+                "mean_abs_inventory": 2.125,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 20.499999999999993,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 264.8,
+                "mean_abs_inventory": 2.3291666666666666,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 10.200000000000006,
+                "max_inventory": 9
+              }
+            }
+          },
+          {
+            "seed": 418,
+            "runs": {
+              "symmetric": {
+                "net": 704.0,
+                "mean_abs_inventory": 8.295833333333333,
+                "liquidation_cost": 34.55000000000007,
+                "fees": 29.99999999999996,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 296.0,
+                "mean_abs_inventory": 2.120833333333333,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 19.000000000000004,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 290.0,
+                "mean_abs_inventory": 1.6208333333333333,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 12.000000000000012,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 419,
+            "runs": {
+              "symmetric": {
+                "net": 931.0,
+                "mean_abs_inventory": 8.870833333333334,
+                "liquidation_cost": 15.25,
+                "fees": 29.999999999999947,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 419.3,
+                "mean_abs_inventory": 2.2083333333333335,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 21.699999999999978,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 336.7,
+                "mean_abs_inventory": 2.2666666666666666,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 11.30000000000001,
+                "max_inventory": 7
+              }
+            }
+          },
+          {
+            "seed": 420,
+            "runs": {
+              "symmetric": {
+                "net": 931.7,
+                "mean_abs_inventory": 9.341666666666667,
+                "liquidation_cost": 18.299999999999955,
+                "fees": 28.299999999999976,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 303.4,
+                "mean_abs_inventory": 2.125,
+                "liquidation_cost": 9.149999999999977,
+                "fees": 18.60000000000002,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 238.6,
+                "mean_abs_inventory": 2.433333333333333,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 10.400000000000006,
+                "max_inventory": 7
+              }
+            }
+          },
+          {
+            "seed": 421,
+            "runs": {
+              "symmetric": {
+                "net": 735.4,
+                "mean_abs_inventory": 10.8125,
+                "liquidation_cost": 50.75,
+                "fees": 29.599999999999973,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 405.0,
+                "mean_abs_inventory": 1.9708333333333334,
+                "liquidation_cost": 9.149999999999977,
+                "fees": 21.0,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 343.9,
+                "mean_abs_inventory": 2.3833333333333333,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 12.100000000000014,
+                "max_inventory": 7
+              }
+            }
+          },
+          {
+            "seed": 422,
+            "runs": {
+              "symmetric": {
+                "net": 1059.2,
+                "mean_abs_inventory": 7.2375,
+                "liquidation_cost": 18.299999999999955,
+                "fees": 29.79999999999996,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 387.6,
+                "mean_abs_inventory": 1.9708333333333334,
+                "liquidation_cost": 6.099999999999966,
+                "fees": 21.400000000000002,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 293.0,
+                "mean_abs_inventory": 2.15,
+                "liquidation_cost": 12.199999999999989,
+                "fees": 12.000000000000009,
+                "max_inventory": 10
+              }
+            }
+          },
+          {
+            "seed": 423,
+            "runs": {
+              "symmetric": {
+                "net": 555.3000000000001,
+                "mean_abs_inventory": 11.345833333333333,
+                "liquidation_cost": 71.0,
+                "fees": 27.69999999999998,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 380.9,
+                "mean_abs_inventory": 2.1125,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 20.100000000000005,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 164.9,
+                "mean_abs_inventory": 2.2375,
+                "liquidation_cost": 21.349999999999994,
+                "fees": 11.100000000000005,
+                "max_inventory": 7
+              }
+            }
+          },
+          {
+            "seed": 424,
+            "runs": {
+              "symmetric": {
+                "net": 822.8000000000001,
+                "mean_abs_inventory": 10.008333333333333,
+                "liquidation_cost": 27.449999999999932,
+                "fees": 29.199999999999964,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 489.8,
+                "mean_abs_inventory": 1.9958333333333333,
+                "liquidation_cost": 9.149999999999977,
+                "fees": 22.199999999999985,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 299.59999999999997,
+                "mean_abs_inventory": 2.466666666666667,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 11.400000000000013,
+                "max_inventory": 8
+              }
+            }
+          },
+          {
+            "seed": 425,
+            "runs": {
+              "symmetric": {
+                "net": 942.8,
+                "mean_abs_inventory": 7.845833333333333,
+                "liquidation_cost": 58.85000000000002,
+                "fees": 30.199999999999992,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 407.5,
+                "mean_abs_inventory": 2.0625,
+                "liquidation_cost": 0.0,
+                "fees": 20.50000000000001,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 367.3,
+                "mean_abs_inventory": 1.8125,
+                "liquidation_cost": 0.0,
+                "fees": 11.700000000000012,
+                "max_inventory": 7
+              }
+            }
+          },
+          {
+            "seed": 426,
+            "runs": {
+              "symmetric": {
+                "net": 817.7,
+                "mean_abs_inventory": 7.133333333333334,
+                "liquidation_cost": 50.75,
+                "fees": 30.299999999999965,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 521.3,
+                "mean_abs_inventory": 1.9083333333333334,
+                "liquidation_cost": 9.150000000000091,
+                "fees": 23.699999999999992,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 370.7,
+                "mean_abs_inventory": 1.5958333333333334,
+                "liquidation_cost": 6.099999999999966,
+                "fees": 12.300000000000017,
+                "max_inventory": 5
+              }
+            }
+          },
+          {
+            "seed": 427,
+            "runs": {
+              "symmetric": {
+                "net": 782.7,
+                "mean_abs_inventory": 11.3375,
+                "liquidation_cost": 62.89999999999998,
+                "fees": 30.29999999999994,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 345.6,
+                "mean_abs_inventory": 2.2,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 21.39999999999999,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 342.8,
+                "mean_abs_inventory": 1.9333333333333333,
+                "liquidation_cost": 0.0,
+                "fees": 11.200000000000012,
+                "max_inventory": 6
+              }
+            }
+          },
+          {
+            "seed": 428,
+            "runs": {
+              "symmetric": {
+                "net": 1317.4,
+                "mean_abs_inventory": 11.204166666666667,
+                "liquidation_cost": 18.299999999999955,
+                "fees": 28.599999999999984,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 447.7,
+                "mean_abs_inventory": 1.8416666666666666,
+                "liquidation_cost": 6.100000000000023,
+                "fees": 21.299999999999997,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 245.6,
+                "mean_abs_inventory": 2.495833333333333,
+                "liquidation_cost": 6.099999999999994,
+                "fees": 11.400000000000006,
+                "max_inventory": 7
+              }
+            }
+          },
+          {
+            "seed": 429,
+            "runs": {
+              "symmetric": {
+                "net": 732.5,
+                "mean_abs_inventory": 11.191666666666666,
+                "liquidation_cost": 46.700000000000045,
+                "fees": 28.499999999999964,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 388.2,
+                "mean_abs_inventory": 1.8458333333333334,
+                "liquidation_cost": 3.0500000000000114,
+                "fees": 18.800000000000004,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 275.0,
+                "mean_abs_inventory": 2.5,
+                "liquidation_cost": 9.149999999999977,
+                "fees": 11.00000000000001,
+                "max_inventory": 7
+              }
+            }
+          },
+          {
+            "seed": 430,
+            "runs": {
+              "symmetric": {
+                "net": 880.6,
+                "mean_abs_inventory": 7.491666666666666,
+                "liquidation_cost": 27.450000000000045,
+                "fees": 30.39999999999996,
+                "max_inventory": 19
+              },
+              "inventory_skew": {
+                "net": 354.1,
+                "mean_abs_inventory": 2.125,
+                "liquidation_cost": 3.0499999999999545,
+                "fees": 20.899999999999995,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 297.9,
+                "mean_abs_inventory": 2.033333333333333,
+                "liquidation_cost": 12.199999999999989,
+                "fees": 12.100000000000009,
+                "max_inventory": 8
+              }
+            }
+          },
+          {
+            "seed": 431,
+            "runs": {
+              "symmetric": {
+                "net": 887.9,
+                "mean_abs_inventory": 9.5625,
+                "liquidation_cost": 66.95000000000005,
+                "fees": 30.099999999999977,
+                "max_inventory": 20
+              },
+              "inventory_skew": {
+                "net": 454.3,
+                "mean_abs_inventory": 2.033333333333333,
+                "liquidation_cost": 9.149999999999977,
+                "fees": 22.699999999999992,
+                "max_inventory": 4
+              },
+              "delayed_refresh": {
+                "net": 369.8,
+                "mean_abs_inventory": 1.8791666666666667,
+                "liquidation_cost": 3.0499999999999545,
+                "fees": 12.20000000000001,
+                "max_inventory": 7
+              }
+            }
+          }
+        ],
+        "summaries": {
+          "symmetric": {
+            "net": {
+              "n": 32,
+              "mean": 812.75625,
+              "standard_error": 38.52880545184824,
+              "ci95": [
+                734.1762332073642,
+                891.3362667926358
+              ]
+            },
+            "mean_abs_inventory": {
+              "n": 32,
+              "mean": 9.361979166666666,
+              "standard_error": 0.3000758723454228,
+              "ci95": [
+                8.749970390079044,
+                9.973987943254288
+              ]
+            },
+            "liquidation_cost": {
+              "n": 32,
+              "mean": 35.34531249999999,
+              "standard_error": 3.884518979032372,
+              "ci95": [
+                27.422783809481423,
+                43.26784119051856
+              ]
+            },
+            "fees": {
+              "n": 32,
+              "mean": 29.181249999999963,
+              "standard_error": 0.17663050895456298,
+              "ci95": [
+                28.82100970194329,
+                29.541490298056637
+              ]
+            },
+            "max_inventory": {
+              "n": 32,
+              "mean": 19.875,
+              "standard_error": 0.09786017015735159,
+              "ci95": [
+                19.675412867097442,
+                20.074587132902558
+              ]
+            }
+          },
+          "inventory_skew": {
+            "net": {
+              "n": 32,
+              "mean": 380.47499999999997,
+              "standard_error": 10.370790051405079,
+              "ci95": [
+                359.3236342404052,
+                401.6263657595947
+              ]
+            },
+            "mean_abs_inventory": {
+              "n": 32,
+              "mean": 2.05546875,
+              "standard_error": 0.019454936035626376,
+              "ci95": [
+                2.015790146356558,
+                2.0951473536434424
+              ]
+            },
+            "liquidation_cost": {
+              "n": 32,
+              "mean": 6.767187500000004,
+              "standard_error": 0.5075320255219791,
+              "ci95": [
+                5.732069109471123,
+                7.802305890528885
+              ]
+            },
+            "fees": {
+              "n": 32,
+              "mean": 20.61875,
+              "standard_error": 0.21957792631730075,
+              "ci95": [
+                20.170917866744023,
+                21.066582133255974
+              ]
+            },
+            "max_inventory": {
+              "n": 32,
+              "mean": 4.0,
+              "standard_error": 0.0,
+              "ci95": [
+                4.0,
+                4.0
+              ]
+            }
+          },
+          "delayed_refresh": {
+            "net": {
+              "n": 32,
+              "mean": 286.559375,
+              "standard_error": 10.8093045897137,
+              "ci95": [
+                264.5136529430845,
+                308.6050970569155
+              ]
+            },
+            "mean_abs_inventory": {
+              "n": 32,
+              "mean": 2.165885416666667,
+              "standard_error": 0.07213274785443873,
+              "ci95": [
+                2.0187697074920172,
+                2.3130011258413163
+              ]
+            },
+            "liquidation_cost": {
+              "n": 32,
+              "mean": 6.004687499999997,
+              "standard_error": 0.9030787377229165,
+              "ci95": [
+                4.162846271259413,
+                7.84652872874058
+              ]
+            },
+            "fees": {
+              "n": 32,
+              "mean": 11.40937500000001,
+              "standard_error": 0.11174562261398503,
+              "ci95": [
+                11.181468300102848,
+                11.637281699897171
+              ]
+            },
+            "max_inventory": {
+              "n": 32,
+              "mean": 7.3125,
+              "standard_error": 0.23519681188864072,
+              "ci95": [
+                6.832812939603551,
+                7.792187060396449
+              ]
+            }
+          }
+        },
+        "differences_vs_symmetric": {
+          "inventory_skew": {
+            "net": {
+              "n": 32,
+              "mean": -432.28125000000006,
+              "standard_error": 36.216961706804966,
+              "ci95": [
+                -506.1462303886526,
+                -358.4162696113475
+              ]
+            },
+            "mean_abs_inventory": {
+              "n": 32,
+              "mean": -7.306510416666667,
+              "standard_error": 0.29906660968097,
+              "ci95": [
+                -7.916460788479191,
+                -6.6965600448541425
+              ]
+            },
+            "liquidation_cost": {
+              "n": 32,
+              "mean": -28.57812499999999,
+              "standard_error": 3.9609439917711007,
+              "ci95": [
+                -36.65652353164021,
+                -20.499726468359768
+              ]
+            },
+            "fees": {
+              "n": 32,
+              "mean": -8.562499999999966,
+              "standard_error": 0.18723098981842407,
+              "ci95": [
+                -8.944360121316752,
+                -8.18063987868318
+              ]
+            },
+            "max_inventory": {
+              "n": 32,
+              "mean": -15.875,
+              "standard_error": 0.09786017015735159,
+              "ci95": [
+                -16.074587132902558,
+                -15.67541286709744
+              ]
+            }
+          },
+          "delayed_refresh": {
+            "net": {
+              "n": 32,
+              "mean": -526.1968750000001,
+              "standard_error": 35.812922148718066,
+              "ci95": [
+                -599.2378112770583,
+                -453.15593872294187
+              ]
+            },
+            "mean_abs_inventory": {
+              "n": 32,
+              "mean": -7.19609375,
+              "standard_error": 0.2609648757652043,
+              "ci95": [
+                -7.728335123160303,
+                -6.6638523768396976
+              ]
+            },
+            "liquidation_cost": {
+              "n": 32,
+              "mean": -29.340624999999996,
+              "standard_error": 3.8926486996246545,
+              "ci95": [
+                -37.27973436498197,
+                -21.401515635018022
+              ]
+            },
+            "fees": {
+              "n": 32,
+              "mean": -17.77187499999996,
+              "standard_error": 0.13855783517908968,
+              "ci95": [
+                -18.05446556795129,
+                -17.489284432048628
+              ]
+            },
+            "max_inventory": {
+              "n": 32,
+              "mean": -12.5625,
+              "standard_error": 0.22867738579534605,
+              "ci95": [
+                -13.028890603216388,
+                -12.096109396783612
+              ]
+            }
+          }
+        }
+      }
+    ]
+  },
   "provenance": {
     "data": "Synthetic Gaussian midprice moves and distance-dependent arrivals; separate synthetic order-book scenarios",
     "numpy": "2.2.4"

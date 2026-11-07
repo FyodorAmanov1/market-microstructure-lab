@@ -44,6 +44,8 @@ Under these parameters, inventory skew underperforms symmetric quoting in all th
 
 The animated 240-frame replay uses a separate illustrative seed. Its endpoint is not the 16-seed average in the table.
 
+The **Fresh seeds** studio cases confirm the original three policies without retuning, using 32 new paired seeds (400–431) in each regime. The [frozen specification](docs/confirmation-plan.json) records policies, outcomes and an enforced engine fingerprint. In balanced flow, inventory skew minus symmetric has liquidated net difference −502.62 ticks (pointwise 95% paired interval [−563.37, −441.87]) and mean absolute inventory difference −7.89 units ([−8.50, −7.28]). Both managed policies have lower net and lower exposure in all three regimes. The studio exposes level and paired intervals, fees, liquidation costs and seed outcomes; [MM04](reports/MM04.md) documents the synthetic-data boundaries and uncertainty.
+
 ## Reading the replay
 
 The three **TWAP** cases compare a finite-depth equal-time parent schedule with **Sweep + retry**, which releases the full order immediately and retries unfilled quantity until the same deadline. Select balanced, rising or capacity-stress execution in the studio. Replay fields show executed inventory, unexecuted parent units, fees and arrival-price shortfall; charts track completion and costs, and the CSV table exposes the cost decomposition.

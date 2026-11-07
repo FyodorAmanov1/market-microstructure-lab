@@ -107,7 +107,7 @@ Explain the objective and units, where each baseline obtains its information, wh
 
 - Extend finite-depth TWAP with persistent depth and sensitivity to replenishment rates; current execution findings are recorded in [MM02](MM02.md).
 - Test sensitivity of the timestamped latency queue to delay jitter, persistent depth and alternative external-flow assumptions; the fixed-delay comparison is recorded in [MM03](MM03.md).
-- Confirm policy differences using fresh seeds and paired confidence intervals, including inventory and liquidation costs.
+- Extend the frozen-policy confirmation with independently calibrated flow and persistent-depth sensitivity; current fresh-seed results are recorded in [MM04](MM04.md).
 
 ## Finite-depth parent execution
 
@@ -124,3 +124,12 @@ The studio's two cancel-latency cases use a deterministic queue ordered by excha
 Holding submission delay at two abstract units, sixteen paired seeds 300–315 compare immediate cancellation with a six-unit delay. Balanced mean liquidated net is 277.81875 ticks for immediate cancellation and 360.88750 for delayed cancellation: a difference of +83.06875, with paired 95% interval [52.87179, 113.26571]. Rising mean net is 317.27500 versus 325.05625: +7.78125, interval [-41.54661, 57.10911]. Delayed mean stale executed quantity is respectively 153.1875 and 147.375 units; immediate cancellation produces zero. All ledgers pass cash/inventory checks and end flat after finite-depth liquidation, including 0.05 tick/unit fees.
 
 The expectation that cancellation delay must reduce net value is not supported by this synthetic comparison. Old and new quotes overlap before cancellation arrives, allowing more spread capture; inventory capacity is reserved for live orders, so replacement sizes can differ. Stale midpoint markout is positive on average and is attribution already included in equity, never an additional P&L item. Replenishment, fixed delays and exogenous flow strongly shape this result. It establishes neither a real-market benefit from latency nor exchange-specific accuracy. [MM03](MM03.md) provides costs, uncertainty, protocol boundaries and replay interpretation.
+
+
+## Frozen-policy confirmation on fresh seeds
+
+The three **Fresh seeds** studio cases retain the existing symmetric, inventory-skew and five-batch-refresh policies and evaluate 32 new paired seeds (400-431) per regime. A saved specification fixes policies, outcomes, contrasts, sample size and interpretation; an engine fingerprint rejects silent simulator changes. No tuning or seed removal is performed on the confirmation results.
+
+Both managed policies have lower liquidated net and lower time-averaged absolute inventory than symmetric quoting in balanced, trend and informed-flow regimes. For inventory skew minus symmetric, balanced net is -502.62 ticks (pointwise paired 95% interval [-563.37, -441.87]) and exposure is -7.89 units ([-8.50, -7.28]); trend net is -477.03 ([-607.54, -346.52]) and informed-flow net is -432.28 ([-506.15, -358.42]). Fees and actual finite-depth liquidation are included. Lower liquidation costs do not reverse the net finding.
+
+The studio CSV includes level and paired intervals for net, mean absolute inventory, peak inventory, fees and liquidation costs. Its full JSON includes all 288 compact policy runs. The seed is the statistical unit, not the serially dependent event batch; regimes reuse seeds and cannot be pooled as independent evidence. Intervals use Student t with 31 degrees of freedom, are pointwise without multiplicity adjustment, and quantify synthetic Monte Carlo variation rather than model error. [MM04](MM04.md) provides all six contrasts, costs, the frozen plan, reproducibility commands and limitations. This preserves the original negative net finding without claiming real-market performance or a universal policy ranking.
