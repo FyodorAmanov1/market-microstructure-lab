@@ -1,5 +1,7 @@
 # Primary references and implementation boundaries
 
+- NIST/SEMATECH. [Confidence intervals for differences between means, paired observations](https://www.itl.nist.gov/div898/handbook/prc/section3/prc312.htm). Primary statistical reference for applying a Student-t interval to within-seed differences. MM04 uses the sample standard deviation of 32 paired differences and 31 degrees of freedom. These pointwise Monte Carlo intervals do not quantify model error or provide simultaneous coverage across all comparisons. Link verified against the NIST source.
+
 - Nasdaq. [OUCH 4.2 specification](https://nasdaqtrader.com/content/technicalsupport/specifications/TradingProducts/OUCH4.2.pdf). Primary order-entry protocol reference: exchange timestamps, executed/canceled responses and cancel rejections. [Nasdaq's OUCH overview](https://classic.nasdaqtrader.com/Trader.aspx?id=ouch) describes price-time matching. The latency adapter uses its own abstract integer clock and arrival/sequence tie rule; it does not reproduce Nasdaq networking, message formats, partial cancel semantics or exchange-specific priority exceptions.
 
 - [High-frequency trading in a limit order book](https://www.math.nyu.edu/~avellane/HighFrequencyTrading.pdf)
