@@ -95,6 +95,15 @@ function render(c) {
   $("kicker").textContent = c.kicker;
   $("case-title").textContent = c.title;
   $("description").textContent = c.description;
+  $("case-downloads").replaceChildren();
+  $("case-downloads").hidden = !c.downloads?.length;
+  for (const item of c.downloads || []) {
+    const link = document.createElement("a");
+    link.href = item.href;
+    link.textContent = item.label;
+    link.download = "";
+    $("case-downloads").append(link, document.createTextNode(" · "));
+  }
   $("metrics").innerHTML = c.metrics
     .map(
       (m) =>

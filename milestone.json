@@ -1,18 +1,26 @@
 {
-  "task_id": "MM04",
+  "task_id": "MM05",
   "status": "completed",
-  "summary": "Froze the original three quoting policies, engine fingerprint, outcomes and fixed sample in an auditable plan. Compared 32 new paired seeds per regime (288 policy runs), reporting pointwise Student-t intervals for liquidated net, average absolute inventory, liquidation costs, fees and peak inventory. Added three studio cases with charts, interval tables, CSV exports and seed outcomes. All six candidate-versus-symmetric contrasts retain lower net with lower inventory exposure under the synthetic assumptions.",
+  "summary": "Defined a compact versioned JSON accepted-command format with strict validation, explicit integer fee accounting, stream and full-state checkpoints, import/export API and CLI. Saved-stream replay reproduces fills, resting FIFO orders and accounts. Added a downloadable saved TWAP example and studio audit against direct finite-depth execution: 48 runs, 11019 commands, 2035 trade records and zero mismatches.",
   "evidence_paths": [
-    "docs/confirmation-plan.json",
-    "src/confirmation.py",
-    "tests/test_confirmation.py",
+    "src/event_log.py",
+    "src/event_log_study.py",
+    "src/execution.py",
     "src/studio.py",
     "lab.py",
+    "tests/test_event_log.py",
+    "examples/twap-events.json",
+    "docs/twap-events.json",
+    "docs/event-log.md",
+    "docs/app.js",
+    "docs/index.html",
     "docs/study.json",
     "results/latest.json",
-    "reports/MM04.md",
+    "reports/MM05.md",
     "reports/applied-study.md",
     "README.md",
-    "REFERENCES.md"
+    "REFERENCES.md",
+    "src/common.py",
+    "results/replayed-example.json"
   ]
 }

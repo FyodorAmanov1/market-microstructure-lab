@@ -62,6 +62,23 @@ This is a synthetic market with stylized order flow and background liquidity. It
 
 ## Run locally
 
+The **Event log / audit** studio case compares direct execution with imported
+command streams across 48 synthetic runs (11,019 commands, 2,035 trade records),
+with zero fill, account or shortfall mismatches. Download its compact example
+and [format contract](docs/event-log.md), then replay it without regenerating a
+market path:
+
+```bash
+python -m src.event_log --export-example examples/twap-events.json
+python -m src.event_log --replay examples/twap-events.json --out results/replayed-example.json
+```
+
+The saved TWAP example reproduces 120 executed units, gross cash of -1,200,010
+ticks, 6 ticks of fees and 16 ticks of arrival shortfall. Its acquired inventory
+remains in the account. The log stores accepted book commands and an explicit
+fee convention; it omits pending latency messages and reference marks. See
+[MM05](reports/MM05.md) for validation, measurements and integrity boundaries.
+
 Use Python 3.12. From the repository root:
 
 ```bash

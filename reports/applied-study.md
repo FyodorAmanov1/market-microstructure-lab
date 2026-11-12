@@ -109,6 +109,25 @@ Explain the objective and units, where each baseline obtains its information, wh
 - Test sensitivity of the timestamped latency queue to delay jitter, persistent depth and alternative external-flow assumptions; the fixed-delay comparison is recorded in [MM03](MM03.md).
 - Extend the frozen-policy confirmation with independently calibrated flow and persistent-depth sensitivity; current fresh-seed results are recorded in [MM04](MM04.md).
 
+## Saved-stream accounting audit
+
+The **Event log / audit** case exports accepted book submissions and cancellations
+as compact validated JSON, with explicit integer fee units and stream/state
+checkpoints. A fresh book reconstructs every trade, resting FIFO order and account.
+Across 48 direct-versus-imported synthetic execution runs (both sides, TWAP and
+Sweep + retry, balanced/rising paths and capacity stress), 11,019 commands and
+2,035 trade records produce zero fill, account or shortfall mismatches. Recording
+leaves the existing execution baseline unchanged. This is deterministic audit
+evidence, not a new policy-performance estimate.
+
+The studio offers ledger CSV, overlapping direct/replayed cost traces and a saved
+8,464-byte example download. That file reproduces 120 acquired units, gross cash
+of -1,200,010 ticks, fees of 6 ticks and arrival shortfall of 16 ticks. Reference
+marks and parent size remain separate valuation inputs: accepted commands alone
+cannot infer shortfall or restore pending latency messages. Checksums detect
+accidental changes but do not authenticate a producer. [MM05](MM05.md) documents
+the format, actual comparisons, tests and model boundaries.
+
 ## Finite-depth parent execution
 
 The timestamped queue comparison is documented below and in [MM03](MM03.md); the TWAP cases retain their original timing and results.
