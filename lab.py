@@ -229,6 +229,7 @@ def experiment():
     from src.execution import execution_experiment
     from src.latency_study import latency_experiment
     from src.confirmation import confirmation_experiment
+    from src.event_log_study import event_log_experiment
 
     return {"project": "market-microstructure-lab", "seed": 1729,
             "metrics": {"symmetric_quotes": simulate(inventory_skew=0), "inventory_skew": simulate()},
@@ -236,6 +237,7 @@ def experiment():
             "execution": execution_experiment(),
             "latency": latency_experiment(),
             "confirmation": confirmation_experiment(),
+            "event_log": event_log_experiment(),
             "provenance": {"data": "Synthetic Gaussian midprice moves and distance-dependent arrivals; separate synthetic order-book scenarios", "numpy": np.__version__},
             "limitations": ["Legacy policy metrics still use the quote-arrival model, independently of the new order book.",
                             "Order book is a single-instrument limit-order model; the latency study adds a deterministic message queue, without amendments, auctions, hidden liquidity or self-trade prevention.",
@@ -251,6 +253,6 @@ if __name__ == "__main__":
     result = json.dumps(experiment(), indent=2, allow_nan=False) + "\n"
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)
-        args.output.write_text(result, encoding="utf-8")
+        args.output.write_text(result, encoding="utf-8", newline="\n")
     else:
         print(result)

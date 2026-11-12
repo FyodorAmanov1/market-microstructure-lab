@@ -34,7 +34,7 @@ def sweep(book, side, quantity, owner):
 
 
 def execute_parent(path, quantity=120, side="buy", policy="twap", fee_per_unit=0.05,
-                   record=False):
+                   record=False, event_log=False):
     """Cumulative equal-time targets with catch-up; frontload is sweep + retry.
 
     Fees are an external cash sink, charged on executed units only. Residual
@@ -53,7 +53,14 @@ def execute_parent(path, quantity=120, side="buy", policy="twap", fee_per_unit=0
                 or type(event["size"]) is not int or event["size"] < 1
                 or type(event["depth"]) is not int or event["depth"] < 1):
             raise ValueError("Invalid market event")
-    book = ReplayBook()
+    if event_log:
+        from src.event_log import EventLogBook
+        minor_fee = round(fee_per_unit * 100)
+        if minor_fee / 100 != fee_per_unit:
+            raise ValueError("Event-log fees require exact hundredths of a tick")
+        book = EventLogBook(per_unit=minor_fee)
+    else:
+        book = ReplayBook()
     sign = 1 if side == "buy" else -1
     arrival = path[0]["mid"]
     filled = notional = 0
@@ -103,7 +110,7 @@ def execute_parent(path, quantity=120, side="buy", policy="twap", fee_per_unit=0
                            "equity": cash + inventory * mid - fees, "fills": fills,
                            "flow": event["side"], "informed": False,
                            "residual": residual, "fees": fees, "shortfall": total})
-    return {"policy": policy, "side": side, "parent_quantity": quantity,
+    result = {"policy": policy, "side": side, "parent_quantity": quantity,
             "arrival_price": arrival, "terminal_mid": path[-1]["mid"],
             "filled_quantity": filled, "residual_inventory": quantity - filled,
             "terminal_inventory": sign * filled, "notional": notional,
@@ -114,6 +121,9 @@ def execute_parent(path, quantity=120, side="buy", policy="twap", fee_per_unit=0
             "implementation_shortfall": costs[-1], "invariant_violations": violations,
             "residual_path": residuals, "shortfall_path": costs,
             "children": children, "frames": frames}
+    if event_log:
+        result["event_log"] = book.export()
+    return result
 
 
 def execution_experiment():
