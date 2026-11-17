@@ -302,6 +302,8 @@ def experiment():
     cases.extend(confirmation_cases())
     from src.event_log_study import studio_cases as event_log_cases
     cases.extend(event_log_cases())
+    from src.queue_study import studio_cases as queue_cases
+    cases.extend(queue_cases())
     return {
         "schema_version": 1,
         "slug": "market-microstructure-lab",

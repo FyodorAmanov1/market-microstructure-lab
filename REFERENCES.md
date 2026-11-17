@@ -1,5 +1,14 @@
 # Primary references and implementation boundaries
 
+- Nasdaq. [OUCH overview](https://www.nasdaqtrader.com/Trader.aspx?id=OUCH).
+  The primary exchange explanation states that nonmatching orders enter the
+  book and match in price-time priority; link verified against the Nasdaq source.
+  MM06 measures actual FIFO order lifetimes in a synthetic persistent queue.
+  Its same-price full cancellation followed by a new submission creates a new
+  acceptance ID. This is a simulator rule, not a claim about every venue's
+  replace/amendment exceptions. The existing NIST paired-interval reference
+  below also supports the seed-level MM06 comparison.
+
 - IETF / RFC Editor. [RFC 8259: The JavaScript Object Notation (JSON) Data Interchange Format](https://www.rfc-editor.org/rfc/rfc8259.html), especially sections 4 and 6 on object member names and number interoperability. Link verified against the primary RFC Editor source. MM05 uses JSON syntax with a custom versioned schema, rejects duplicate keys and nonfinite constants, and preserves integer accounting in Python. Its sorted-key ASCII digest convention is explicitly documented and is not a claim of RFC 8785 conformance or an exchange-standard message format.
 
 - NIST/SEMATECH. [Confidence intervals for differences between means, paired observations](https://www.itl.nist.gov/div898/handbook/prc/section3/prc312.htm). Primary statistical reference for applying a Student-t interval to within-seed differences. MM04 uses the sample standard deviation of 32 paired differences and 31 degrees of freedom. These pointwise Monte Carlo intervals do not quantify model error or provide simultaneous coverage across all comparisons. Link verified against the NIST source.

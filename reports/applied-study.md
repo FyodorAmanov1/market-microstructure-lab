@@ -109,6 +109,30 @@ Explain the objective and units, where each baseline obtains its information, wh
 - Test sensitivity of the timestamped latency queue to delay jitter, persistent depth and alternative external-flow assumptions; the fixed-delay comparison is recorded in [MM03](MM03.md).
 - Extend the frozen-policy confirmation with independently calibrated flow and persistent-depth sensitivity; current fresh-seed results are recorded in [MM04](MM04.md).
 
+## Observed queue position and fill waits
+
+The **Queue / time-to-fill** studio case now measures first/full fill times and
+same-price queue position from actual accepted orders and matched trade IDs.
+Unlike the original standalone quote-arrival baseline, it never samples whether
+an individual quote fills. Persistent finite depth, partial fills and other
+orders' cancellations determine progress. The unchanged legacy API remains a
+separate model.
+
+In 32 paired synthetic seeds, each with eight four-unit buy/sell parents,
+holding an order completes 253/256 parents and fills 3.960938 units per parent.
+Cancelling and rejoining at the same price every four events completes 54/256
+and fills 1.164062 units. Re-entry minus hold is -2.796875 units (pointwise paired
+95% interval [-3.005687, -2.588063]). Mean restricted completion time, which uses
+the 20-event deadline for unfinished parents, rises from 9.335938 to 17.937500.
+This negative re-entry result is conditional on a fixed price: it cannot answer
+whether repricing a stale quote would offset the priority loss.
+
+The studio adds order age/rank/units-ahead replay fields and a downloadable
+1,630-row child-order ledger. First/full waits remain missing when unobserved;
+cancelled children and deadline-open children have separate outcomes. There is
+no survival extrapolation or independent fill-probability approximation.
+[MM06](MM06.md) gives commands, assumptions, uncertainty and interpretation.
+
 ## Saved-stream accounting audit
 
 The **Event log / audit** case exports accepted book submissions and cancellations
