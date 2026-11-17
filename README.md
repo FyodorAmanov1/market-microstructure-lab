@@ -56,6 +56,17 @@ Start with the book and inventory traces, then compare marked equity with liquid
 
 ## Model boundaries
 
+The **Queue / time-to-fill** case compares holding a four-unit passive order with
+cancelling and rejoining at the same price every four events. Across 32 paired
+synthetic seeds (256 parents per policy), holding completes 253 parents versus
+54 for re-entry. Re-entry fills 2.796875 fewer units per parent on average
+(paired 95% interval [-3.005687, -2.588063]). The replay displays actual order
+age, same-price rank and units ahead. Download all 1,630 recorded child-order
+lifetimes to inspect first/full fill waits, cancellations and open remainders.
+This fixed-price experiment isolates lost priority; it does not measure the
+benefit of repricing stale quotes. Missing fill times stay unobserved, and
+cancelled orders are not counted as completed. See [MM06](reports/MM06.md).
+
 The two **Cancel latency** studio cases hold submission delay at two abstract units and compare immediate with six-unit cancellation delay. Over sixteen matched seeds (300–315), delayed cancellation increases stale executed quantity to 153.1875 units in balanced flow and 147.375 in rising flow. Mean liquidated net differences are +83.07 ticks (95% paired interval [52.87, 113.27]) and +7.78 ticks ([-41.55, 57.11]). Stale fills are not necessarily harmful: old/new quote overlap captures additional modeled spread, and the rising comparison is unresolved. Fees and liquidation costs are included. The replay shows timestamps and pending-cancel fills; [MM03](reports/MM03.md) documents the message rules and limitations. The earlier delayed-refresh policy remains a separate cadence experiment.
 
 This is a synthetic market with stylized order flow and background liquidity. It does not reproduce a particular exchange, infer execution quality from historical market data or support a claim of a profitable trading strategy. Results depend on the chosen flow, replenishment, inventory and liquidation rules.
@@ -102,6 +113,7 @@ To regenerate the study or compare it with the saved artifact:
 python src/studio.py --out docs/study.json
 python src/studio.py --check docs/study.json
 python lab.py --output results/latest.json
+python -m src.queue_study --orders-csv docs/queue-orders.csv
 python -m unittest discover -s tests -v
 ```
 

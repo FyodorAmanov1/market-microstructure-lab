@@ -1,26 +1,20 @@
 {
-  "task_id": "MM05",
+  "task_id": "MM06",
   "status": "completed",
-  "summary": "Defined a compact versioned JSON accepted-command format with strict validation, explicit integer fee accounting, stream and full-state checkpoints, import/export API and CLI. Saved-stream replay reproduces fills, resting FIFO orders and accounts. Added a downloadable saved TWAP example and studio audit against direct finite-depth execution: 48 runs, 11019 commands, 2035 trade records and zero mismatches.",
+  "summary": "Measured order-level first/full fill waits, queue rank and remaining units ahead directly from accepted orders and actual trade IDs. Added a persistent-depth hold-versus-rejoin comparison across 32 paired synthetic seeds, a 1630-child lifecycle CSV and studio queue replay. Holding completes 253/256 parents versus 54/256 for re-entry; paired filled-quantity difference is -2.796875 units with 95% interval [-3.005687, -2.588063]. Cancellation and deadline-open outcomes remain distinct, with no independent fill-probability shortcut in this analysis.",
   "evidence_paths": [
-    "src/event_log.py",
-    "src/event_log_study.py",
-    "src/execution.py",
+    "src/queue_fill.py",
+    "src/queue_study.py",
     "src/studio.py",
     "lab.py",
-    "tests/test_event_log.py",
-    "examples/twap-events.json",
-    "docs/twap-events.json",
-    "docs/event-log.md",
+    "tests/test_queue_fill.py",
+    "docs/queue-orders.csv",
     "docs/app.js",
-    "docs/index.html",
     "docs/study.json",
     "results/latest.json",
-    "reports/MM05.md",
+    "reports/MM06.md",
     "reports/applied-study.md",
     "README.md",
-    "REFERENCES.md",
-    "src/common.py",
-    "results/replayed-example.json"
+    "REFERENCES.md"
   ]
 }

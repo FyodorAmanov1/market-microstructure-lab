@@ -255,6 +255,11 @@ function replayFrame() {
     $("replay-values").innerHTML +=
       `<div><span>CUMULATIVE STALE FILLED UNITS</span><strong>${fmt(f.stale_quantity)}</strong></div>`;
   }
+  if (f.queue_order_id !== undefined) {
+    const q = f.queue_position;
+    $("replay-values").innerHTML +=
+      `<div><span>ACTIVE ORDER / AGE</span><strong>${fmt(f.queue_order_id)} / ${fmt(f.queue_age)}</strong></div><div><span>SAME-PRICE RANK / UNITS AHEAD</span><strong>${q ? `${fmt(q.rank)} / ${fmt(q.same_price_ahead)}` : "No live remainder"}</strong></div><div><span>PARENT FILLED / 4 UNITS</span><strong>${fmt(f.queue_filled)}</strong></div>`;
+  }
 }
 $("replay-range").oninput = () => {
   stop();
